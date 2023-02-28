@@ -9,5 +9,7 @@
 </head>
 <body>
   <h1>Hello World!</h1>
+  <i class="bi bi-0-square-fill"></i>
+  <i class="bi bi-4-square-fill"></i>
 </body>
 </html>
