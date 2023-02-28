@@ -1,0 +1,20 @@
+// overriding bootstrap colors
+$primary : #0f9cf3;
+$secondary: #6c757d;
+$success: #6fd088;
+$info: #0097a7;
+$warning: #ffbb44;
+$danger: #f32f53;
+$light: #eff2f7;
+$dark: #0a1832;
+
+// overriding box-shadow of inputs, selects and buttons
+$btn-focus-box-shadow: none;
+$input-focus-box-shadow: none;
+$form-select-focus-box-shadow: none;
+
+// overriding font family
+$font-family-sans-serif: 'Poppins', sans-serif;
+
+// import bootstrap
+@import '~bootstrap/scss/bootstrap';
