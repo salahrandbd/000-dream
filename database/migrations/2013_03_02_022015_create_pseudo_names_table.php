@@ -10,11 +10,10 @@ return new class extends Migration {
    */
   public function up(): void
   {
-    Schema::create('users', function (Blueprint $table) {
+    Schema::create('pseudo_names', function (Blueprint $table) {
       $table->id();
-      $table->foreignId('pseudo_name_id')->nullable()->constrained()->nullOnDelete();
-      $table->string('password');
-      $table->rememberToken();
+      $table->string('name')->unique();
+      $table->enum('gender', ['Male', 'Female']);
       $table->timestamps();
     });
   }
@@ -24,6 +23,6 @@ return new class extends Migration {
    */
   public function down(): void
   {
-    Schema::dropIfExists('users');
+    Schema::dropIfExists('pseudo_names');
   }
 };
