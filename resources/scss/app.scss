@@ -1,2 +1,27 @@
 @import 'fonts';
 @import 'variables';
+
+@import 'topbar';
+
+body {
+  padding-top: 70px;
+  overflow-x: hidden;
+}
+
+.fw-medium {
+  font-weight: 500;
+}
+
+.fw-semibold {
+  font-weight: 600;
+}
+
+.form-label {
+  font-weight: 500;
+}
+
+.is-invalid {
+  &:focus {
+    box-shadow: none !important;
+  }
+}

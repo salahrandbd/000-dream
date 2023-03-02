@@ -1,3 +1,4 @@
+import '../css/theme.min.css';
 import '../scss/app.scss';
 
 import * as bootstrap from 'bootstrap';

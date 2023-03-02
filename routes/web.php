@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\PseudoNameController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,7 +14,18 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
 Route::get('/', function () {
-    return view('welcome');
+  return 'Hello World';
 });
+
+Route::prefix('/pseudo-names')->group(function () {
+  Route::controller(PseudoNameController::class)->group(function () {
+    Route::get('/', 'index');
+  });
+});
+
+Route::controller(UserController::class)->group(function () {
+  Route::get('/register', 'register');
+  Route::post('/users', 'store');
+});
+
