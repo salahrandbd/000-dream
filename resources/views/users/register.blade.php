@@ -1,5 +1,5 @@
 <x-layout>
-  <div class="register-container container-fluid p-0">
+  <div class="register-container container-fluid">
     <div class="register-row row">
       <div class="register-col col-12 col-md-6 mx-auto">
         <div class="register-card card my-5 p-3">

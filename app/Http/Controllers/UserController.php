@@ -21,6 +21,7 @@ class UserController extends Controller
       'gender' => ['required', Rule::in(['Male', 'Female'])],
       'pseudo_name_id' => [
         'required',
+        'unique:users',
         Rule::exists('pseudo_names', 'id')->where(function (Builder $query) {
           return $query->where('gender', request('gender'));
         }),

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\PseudoName;
 use App\Http\Requests\StorePseudoNameRequest;
 use App\Http\Requests\UpdatePseudoNameRequest;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class PseudoNameController extends Controller
 {
@@ -15,6 +17,19 @@ class PseudoNameController extends Controller
   {
     return response()->json([
       'pseudo_names' => PseudoName::filter(request(['gender']))->get()
+    ]);
+  }
+
+  public function available(Request $request)
+  {
+    $request->validate([
+      'gender' => ['required', Rule::in(['Male', 'Female'])]
+    ]);
+
+    return response()->json([
+      'pseudo_names' => PseudoName::join('users', 'pseudo_names.id', '<>', 'users.pseudo_name_id')
+                        ->where('pseudo_names.gender', '=', request('gender'))
+                        ->get(['pseudo_names.id', 'pseudo_names.name'])
     ]);
   }
 

@@ -2,15 +2,17 @@ const genderInp = $('[name="gender"]');
 const pseudoNameInp = $('[name="pseudo_name_id"]');
 
 genderInp.on('change', (e) => {
+  if ($(e.target).val() == '') return;
+
   $.ajax({
-    url: `/pseudo-names/?gender=${$(e.target).val()}`,
+    url: `/pseudo-names/available/?gender=${$(e.target).val()}`,
     method: 'GET',
     beforeSend: () => {
       pseudoNameInp.html('<option selected value="">--Choose an option--</option>');
     },
     success: (res) => {
+      console.log(res);
       res.pseudo_names.forEach((item) => {
-        console.log(item.id, item.name);
         pseudoNameInp.append(`<option value="${item.id}">${item.name}</option>`)
       });
     },

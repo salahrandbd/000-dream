@@ -20,7 +20,7 @@ Route::get('/', function () {
 
 Route::prefix('/pseudo-names')->group(function () {
   Route::controller(PseudoNameController::class)->group(function () {
-    Route::get('/', 'index');
+    Route::get('/available', 'available');
   });
 });
 
