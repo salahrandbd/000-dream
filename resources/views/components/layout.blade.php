@@ -10,6 +10,9 @@
   </head>
   <body data-topbar="dark" class="bg-light">
     <x-navbar/>
+    @auth
+      <x-sidebar/>
+    @endauth
 
     {{ $slot }}
   </body>

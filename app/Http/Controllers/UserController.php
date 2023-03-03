@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\PseudoName;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -37,5 +38,27 @@ class UserController extends Controller
     auth()->login($user);
 
     return redirect('/')->with('message', 'Congrats! You have been successfully registered.');
+  }
+
+  public function login()
+  {
+    $pseudoNames = PseudoName::select('id', 'name')->get();
+    return view('users.login', compact('pseudoNames'));
+  }
+
+  public function authenticate(Request $request)
+  {
+    $validated = $request->validate([
+      'pseudo_name_id' => 'required',
+      'password' => 'required'
+    ]);
+
+    if (auth()->attempt($validated)) {
+      $request->session()->regenerate();
+
+      return redirect('/')->with('message', 'You\'re now logged in!');
+    } else {
+      return back()->withErrors(['generic' => 'Invalid pseudo name or password'])->onlyInput('generic');
+    }
   }
 }

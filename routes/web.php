@@ -27,5 +27,7 @@ Route::prefix('/pseudo-names')->group(function () {
 Route::controller(UserController::class)->group(function () {
   Route::get('/register', 'register');
   Route::post('/users', 'store');
+  Route::get('/login', 'login');
+  Route::post('/users/authenticate', 'authenticate');
 });
 
