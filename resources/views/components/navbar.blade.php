@@ -8,32 +8,38 @@
           <x-logo mode="light"/>
         </a>
       </div>
+      {{-- <button type="button" class="btn btn-sm px-3 font-size-24 header-item waves-effect" id="vertical-menu-btn">
+        <i class="bi bi-list"></i>
+      </button> --}}
     </div>
 
     <div class="navbar-right-wrapper d-flex">
-      <div class="auth-btns">
-        <a href="" class="login-btn btn btn-primary text-white">Login</a>
-      </div>
-      {{-- <div class="dropdown d-inline-block user-dropdown">
-        <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
-          data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <img class="rounded-circle header-profile-user" src="assets/images/users/avatar-1.jpg" alt="Header Avatar">
-          <span class="d-none d-xl-inline-block ms-1">Julia</span>
-          <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
-        </button>
-        <div class="dropdown-menu dropdown-menu-end">
-          <!-- item-->
-          <a class="dropdown-item" href="#"><i class="ri-user-line align-middle me-1"></i> Profile</a>
-          <a class="dropdown-item" href="#"><i class="ri-wallet-2-line align-middle me-1"></i> My Wallet</a>
-          <a class="dropdown-item d-block" href="#"><span class="badge bg-success float-end mt-1">11</span><i
-              class="ri-settings-2-line align-middle me-1"></i> Settings</a>
-          <a class="dropdown-item" href="#"><i class="ri-lock-unlock-line align-middle me-1"></i> Lock
-            screen</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item text-danger" href="#"><i
-              class="ri-shut-down-line align-middle me-1 text-danger"></i> Logout</a>
+      @guest()
+        <div class="auth-btns">
+          <a href="/login" class="login-btn btn btn-primary text-white">Login</a>
         </div>
-      </div> --}}
+      @endguest
+
+      @auth
+        <div class="dropdown d-inline-block user-dropdown">
+          <button type="button" class="btn header-item waves-effect border-0 bg-transparent" id="page-header-user-dropdown"
+            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <img class="rounded-circle" width="32" src="{{ asset('storage/images/'. auth()->user()->pseudoName->gender .'.png') }}" alt="Header Avatar">
+            <span class="d-none d-md-inline-block mx-1">{{ auth()->user()->pseudoName->name }}</span>
+            <i class="bi bi-chevron-down"></i>
+          </button>
+          <div class="dropdown-menu dropdown-menu-end">
+            <a class="dropdown-item" href="#">
+              <i class="bi bi-person-circle text-primary"></i>
+              <span class="ms-1">Edit Profile</span>
+            </a>
+            <a class="dropdown-item" href="/logout">
+              <i class="bi bi-power text-primary"></i>
+              <span class="ms-1">Logout</span>
+            </a>
+          </div>
+        </div>
+      @endauth
     </div>
   </div>
 </header>

@@ -9,10 +9,8 @@ class PseudoName extends Model
 {
   use HasFactory;
 
-  public function scopeFilter($query, array $filters)
+  public function user()
   {
-    if($filters['gender'] ?? false) {
-      $query->where('gender', '=', request('gender'));
-    }
+    return $this->hasOne(User::class);
   }
 }

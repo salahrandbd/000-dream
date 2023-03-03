@@ -55,10 +55,19 @@ class UserController extends Controller
 
     if (auth()->attempt($validated)) {
       $request->session()->regenerate();
-
       return redirect('/')->with('message', 'You\'re now logged in!');
     } else {
       return back()->withErrors(['generic' => 'Invalid pseudo name or password'])->onlyInput('generic');
     }
+  }
+
+  public function destroy(Request $request)
+  {
+    auth()->logout();
+
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+
+    return redirect('/register')->with('message', 'Logged out successfully');
   }
 }

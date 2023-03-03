@@ -14,9 +14,7 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/', function () {
-  return 'Hello World';
-});
+Route::view('/', 'dashboard')->middleware('auth');
 
 Route::prefix('/pseudo-names')->group(function () {
   Route::controller(PseudoNameController::class)->group(function () {
@@ -25,9 +23,10 @@ Route::prefix('/pseudo-names')->group(function () {
 });
 
 Route::controller(UserController::class)->group(function () {
-  Route::get('/register', 'register');
-  Route::post('/users', 'store');
-  Route::get('/login', 'login');
-  Route::post('/users/authenticate', 'authenticate');
+  Route::get('/register', 'register')->middleware('guest');
+  Route::post('/users', 'store')->middleware('guest');
+  Route::get('/login', 'login')->middleware('guest');
+  Route::post('/users/authenticate', 'authenticate')->middleware('guest');
+  Route::get('/logout', 'destroy')->middleware('auth');
 });
 

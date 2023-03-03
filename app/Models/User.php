@@ -31,4 +31,9 @@ class User extends Authenticatable
     'password',
     'remember_token',
   ];
+
+  public function pseudoName()
+  {
+    return $this->belongsTo(PseudoName::class);
+  }
 }
