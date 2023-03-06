@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArtisanController;
 use App\Http\Controllers\PseudoNameController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -30,5 +31,17 @@ Route::controller(UserController::class)->group(function () {
   Route::get('/logout', 'destroy')->middleware('auth')->name('logout');
   Route::get('/edit-profile', 'showEditProfile')->middleware('auth')->name('edit_profile.show');
   Route::put('/edit-profile', 'editProfile')->middleware('auth')->name('edit_profile');
+});
+
+Route::prefix('/artisan')->group(function () {
+  Route::controller(ArtisanController::class)->group(function () {
+    Route::get('/config-clear', 'configClear');
+    Route::get('/config-cache', 'configCache');
+    Route::get('/cache-clear', 'cacheClear');
+    Route::get('/view-clear', 'viewClear');
+    Route::get('/storage-link', 'storageLink');
+    Route::get('/migrate', 'migrate');
+    Route::get('/seed-pseudo-name', 'seedPseudoName');
+  });
 });
 

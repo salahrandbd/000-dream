@@ -3,7 +3,9 @@
 <header class="topbar position-relative container-fluid d-flex align-items-center border-bottom bg-white">
   <div class="topbar-left-wrapper d-flex justify-content-between justify-content-lg-start">
     <x-logo mode="dark" />
-    <i class="hamburger-menu-icon d-lg-none cursor-pointer bi bi-list fs-2"></i>
+    @auth()
+      <i class="hamburger-menu-icon d-lg-none cursor-pointer bi bi-list fs-2"></i>
+    @endauth
   </div>
 
   <div class="topbar-right-wrapper d-flex">
@@ -17,7 +19,7 @@
       <div class="dropdown ms-auto">
         <button type="button" class="btn border-0" data-bs-toggle="dropdown" >
           <img class="rounded-circle" width="32"
-            src="{{ asset('storage/images/' . auth()->user()->pseudoName->gender . '.png') }}" alt="Header Avatar">
+            src="{{ asset('storage/images/' . strtolower(auth()->user()->pseudoName->gender) . '.png') }}" alt="Header Avatar">
           <span class="d-none d-sm-inline-block mx-1">{{ auth()->user()->pseudoName->name }}</span>
           <i class="bi bi-chevron-down"></i>
         </button>

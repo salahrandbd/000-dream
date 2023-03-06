@@ -35,3 +35,25 @@ body {
 .cursor-pointer {
   cursor: pointer;
 }
+
+.toast {
+  &-wrapper {
+    width: 100%;
+    max-width: $toast-max-width;
+  }
+
+  &.success {
+    background-color: $success;
+    $box-shadow: 0 .5rem 1rem rgba($success, .15) !default;
+  }
+
+  &.error {
+    background-color: $danger;
+    $box-shadow: 0 .5rem 1rem rgba($danger, .15) !default;
+  }
+
+  i,
+  span {
+    color: $white;
+  }
+}
