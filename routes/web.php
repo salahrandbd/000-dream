@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::view('/', 'dashboard')->middleware('auth');
+Route::view('/', 'dashboard')->middleware('auth')->name('dashboard');
 
 Route::prefix('/pseudo-names')->group(function () {
   Route::controller(PseudoNameController::class)->group(function () {
@@ -23,10 +23,12 @@ Route::prefix('/pseudo-names')->group(function () {
 });
 
 Route::controller(UserController::class)->group(function () {
-  Route::get('/register', 'register')->middleware('guest');
-  Route::post('/users', 'store')->middleware('guest');
-  Route::get('/login', 'login')->middleware('guest');
-  Route::post('/users/authenticate', 'authenticate')->middleware('guest');
-  Route::get('/logout', 'destroy')->middleware('auth');
+  Route::get('/register', 'register')->middleware('guest')->name('register.show');
+  Route::post('/users', 'store')->middleware('guest')->name('register');
+  Route::get('/login', 'login')->middleware('guest')->name('login.show');
+  Route::post('/users/authenticate', 'authenticate')->middleware('guest')->name('login');
+  Route::get('/logout', 'destroy')->middleware('auth')->name('logout');
+  Route::get('/edit-profile', 'showEditProfile')->middleware('auth')->name('edit_profile.show');
+  Route::put('/edit-profile', 'editProfile')->middleware('auth')->name('edit_profile');
 });
 

@@ -37,7 +37,10 @@ class UserController extends Controller
 
     auth()->login($user);
 
-    return redirect('/')->with('message', 'Congrats! You have been successfully registered.');
+    return redirect('/')->with([
+      'alert-type' => 'success',
+      'message' => 'Congrats! You have been successfully registered.'
+    ]);
   }
 
   public function login()
@@ -50,12 +53,15 @@ class UserController extends Controller
   {
     $validated = $request->validate([
       'pseudo_name_id' => 'required',
-      'password' => 'required'
+      'password' => 'required',
     ]);
 
-    if (auth()->attempt($validated)) {
+    if (auth()->attempt($validated, request('remember'))) {
       $request->session()->regenerate();
-      return redirect('/')->with('message', 'You\'re now logged in!');
+      return redirect('/')->with([
+        'alert-type' => 'success',
+        'message' => 'You\'re now logged in!'
+      ]);
     } else {
       return back()->withErrors(['generic' => 'Invalid pseudo name or password'])->onlyInput('generic');
     }
@@ -68,6 +74,55 @@ class UserController extends Controller
     $request->session()->invalidate();
     $request->session()->regenerateToken();
 
-    return redirect('/register')->with('message', 'Logged out successfully');
+    return redirect('/login')->with([
+      'alert-type' => 'success',
+      'message' => 'Logged out successfully'
+    ]);
+  }
+
+  public function showEditProfile()
+  {
+    $pseudoNames = PseudoName::
+      whereNotIn('id', function ($query) {
+        $query
+          ->select('pseudo_name_id')
+          ->where('pseudo_name_id', '<>', auth()->user()->pseudo_name_id)
+          ->from('users');
+      })
+      ->where('gender', '=', auth()->user()->pseudoName->gender)
+      ->get(['id', 'name']);
+
+    return view('users.edit-profile', compact('pseudoNames'));
+  }
+
+  public function editProfile(Request $request)
+  {
+    $validated = $request->validate([
+      'pseudo_name_id' => [
+        'nullable',
+        Rule::unique('users')->ignore(auth()->id()),
+        Rule::exists('pseudo_names', 'id')->where(function (Builder $query) {
+          return $query->where('gender', auth()->user()->pseudoName->gender);
+        })
+      ],
+      'password' => ['nullable', 'confirmed', Password::min(8)->uncompromised()]
+    ]);
+
+    $user = User::find(auth()->id());
+
+    $validated['pseudo_name_id'] && $user['pseudo_name_id'] = $validated['pseudo_name_id'];
+    $validated['password'] && $user['password'] = bcrypt($validated['password']);
+
+    if(!$user->save()) {
+      return back()->with([
+        'alert-type' => 'error',
+        'message' => 'Failed to update the profile'
+      ]);
+    } else {
+      return back()->with([
+        'alert-type' => 'success',
+        'message' => 'Profile updated successfully'
+      ]);
+    }
   }
 }

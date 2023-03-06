@@ -15,9 +15,7 @@ class PseudoNameController extends Controller
    */
   public function index()
   {
-    return response()->json([
-      'pseudo_names' => PseudoName::filter(request(['gender']))->get()
-    ]);
+
   }
 
   public function available(Request $request)
@@ -27,9 +25,12 @@ class PseudoNameController extends Controller
     ]);
 
     return response()->json([
-      'pseudo_names' => PseudoName::join('users', 'pseudo_names.id', '<>', 'users.pseudo_name_id')
-                        ->where('pseudo_names.gender', '=', request('gender'))
-                        ->get(['pseudo_names.id', 'pseudo_names.name'])
+      'pseudo_names' => PseudoName::
+        whereNotIn('id', function ($query) {
+          $query->select('pseudo_name_id')->from('users');
+        })
+        ->where('gender', '=', request('gender'))
+        ->get(['id', 'name'])
     ]);
   }
 

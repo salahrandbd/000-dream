@@ -1,10 +1,12 @@
 @import 'fonts';
 @import 'variables';
 
-@import 'topbar';
+@import 'layout';
+
+@import 'dashboard';
+@import 'edit-profile';
 
 body {
-  padding-top: 70px;
   overflow-x: hidden;
 }
 
@@ -28,4 +30,8 @@ body {
   &:focus {
     box-shadow: none !important;
   }
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }

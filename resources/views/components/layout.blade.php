@@ -8,12 +8,14 @@
     <title>Dream | Track things organizedly</title>
     @vite('resources/js/app.js')
   </head>
-  <body data-topbar="dark" class="bg-light">
-    <x-navbar/>
-    @auth
-      <x-sidebar/>
-    @endauth
-
-    {{ $slot }}
+  <body class="bg-light">
+    <x-topbar/>
+    <main class="position-relative d-flex align-items-stretch">
+      @auth <x-sidebar/> @endauth
+      <div class="site-content container-fluid">
+        {{ $slot }}
+      </div>
+    </main>
+    <x-flash-message/>
   </body>
 </html>

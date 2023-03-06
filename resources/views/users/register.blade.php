@@ -1,18 +1,16 @@
 <x-layout>
   <div class="register-container container-fluid">
-    <div class="register-row row">
-      <div class="register-col col-12 col-md-6 mx-auto">
-        <div class="register-card card my-5 p-3">
-          <div class="register-card-body card-body">
-            <div class="register-card-header text-center">
-              <a class="logo text-decoration-none">
-                <x-logo mode="dark"/>
-              </a>
+    <div class="row">
+      <div class="col-12 col-md-6 mx-auto">
+        <div class="card my-5 p-3">
+          <div class="card-body">
+            <div class="text-center">
+              <x-logo mode="dark"/>
             </div>
 
-            <form action="/users" method="POST" class="register-form">
+            <form action="{{ route('register') }}" method="POST">
               @csrf
-              <legend class="register-form-heading text-center fw-semibold mb-4">Register Now!</legend>
+              <legend class="text-center fw-semibold mb-4">Register Now!</legend>
               <div class="mb-3">
                 <label for="gender" class="form-label">Select your gender</label>
                 <select name="gender" id="gender" class="form-select @error('gender') is-invalid @enderror" required>
@@ -41,7 +39,8 @@
                 <input name="password_confirmation" type="password" class="form-control @error('password_confirmation') is-invalid @enderror" id="password_confirmation" required minlength="8"/>
                 @error('password_confirmation') <div class="invalid-feedback">{{ $message }}</div> @enderror
               </div>
-              <button type="submit" class="register-btn btn btn-primary text-white w-100">Register</button>
+              <button type="submit" class="btn btn-primary text-white w-100">Register</button>
+              <p class="mt-4 mb-0 text-center">Already registered? <a class="text-primary" href="{{ route('login.show') }}">Login now</a></p>
             </form>
           </div>
         </div>
