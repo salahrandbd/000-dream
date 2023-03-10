@@ -60,12 +60,31 @@
       letter-spacing: 2px;
     }
 
-    li {
+    > li {
       &:not(.sidebar-menu-title) {
-        &:hover {
-          background-color: $light;
-          border-radius: .25rem;
+        > a {
+          &:hover {
+            background-color: $light;
+            border-radius: .25rem;
+          }
         }
+      }
+
+      ul {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.25s ease-in-out;
+
+        li {
+          a {
+            color: $gray-700;
+          }
+        }
+      }
+
+      i {
+        top: .75rem;
+        right: .5rem;
       }
     }
   }

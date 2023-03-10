@@ -10,11 +10,25 @@ window.$ = $;
 import './flash-message';
 
 $(window).on('load', () => {
+  // sidebar toggler
   const hamburgerMenuIcon = $('.hamburger-menu-icon');
   const sidebar = $('.sidebar');
 
   hamburgerMenuIcon.on('click', () => {
     sidebar.toggleClass('active');
+  });
+
+  // sidebar sub-menu toggler
+  const subMenuItems = $('.sidebar-menu > li:not(.sidebar-menu-title)');
+  $.each(subMenuItems, (idx, subMenuItem) => {
+    $(subMenuItem).on('click', (e) => {
+      const subMenu = $(subMenuItem).find('ul');
+      if (subMenu.css('max-height') != '0px') {
+        subMenu.css('max-height', '0px');
+      } else {
+        subMenu.css('max-height', subMenu.prop('scrollHeight') + 'px');
+      }
+    });
   });
 });
 

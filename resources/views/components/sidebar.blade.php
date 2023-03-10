@@ -1,29 +1,53 @@
 <div class="sidebar container-fluid bg-white pb-5">
   <ul class="sidebar-menu list-unstyled">
     <li class="sidebar-menu-title text-uppercase text-muted fw-semibold px-1 my-3">Trackers</li>
-    <li class="p-2">
-      <a class="d-flex align-items-center text-decoration-none">
+    <li class="position-relative">
+      <a class="d-flex align-items-center text-decoration-none p-2 cursor-pointer">
         <img src="{{ asset('storage/images/salah.png') }}" width="24" alt="">
         <span class="ms-3 text-dark">Salah Tracker</span>
       </a>
+      <i class="position-absolute bi bi-chevron-down"></i>
+      <ul class="list-unstyled border-start border-4 border-primary ms-2 mt-1">
+        <li class="px-2"><a href="" class="text-decoration-none">Daily Tracker</a></li>
+        <li class="px-2"><a href="" class="text-decoration-none">Tracking History</a></li>
+        <li class="px-2"><a href="" class="text-decoration-none">Leaderboard</a></li>
+      </ul>
     </li>
-    <li class="p-2">
-      <a class="d-flex align-items-center text-decoration-none">
+    <li class="position-relative">
+      <a class="d-flex align-items-center text-decoration-none p-2 cursor-pointer">
         <img src="{{ asset('storage/images/sawm.png') }}" width="24" alt="">
         <span class="ms-3 text-dark">Sawm Tracker</span>
       </a>
+      <i class="position-absolute bi bi-chevron-down"></i>
+      <ul class="list-unstyled border-start border-4 border-primary ms-2 mt-1">
+        <li class="px-2"><a href="" class="text-decoration-none">Daily Tracker</a></li>
+        <li class="px-2"><a href="" class="text-decoration-none">Tracking History</a></li>
+        <li class="px-2"><a href="" class="text-decoration-none">Leaderboard</a></li>
+      </ul>
     </li>
-    <li class="p-2">
-      <a class="d-flex align-items-center text-decoration-none">
+    <li class="position-relative">
+      <a class="d-flex align-items-center text-decoration-none p-2 cursor-pointer">
         <img src="{{ asset('storage/images/transaction.png') }}" width="24" alt="">
         <span class="ms-3 text-dark">Transaction Tracker</span>
       </a>
+      <i class="position-absolute bi bi-chevron-down"></i>
+      <ul class="list-unstyled border-start border-4 border-primary ms-2 mt-1">
+        <li class="px-2"><a href="" class="text-decoration-none">Daily Tracker</a></li>
+        <li class="px-2"><a href="" class="text-decoration-none">Tracking History</a></li>
+        <li class="px-2"><a href="" class="text-decoration-none">Leaderboard</a></li>
+      </ul>
     </li>
-    <li class="p-2">
-      <a class="d-flex align-items-center text-decoration-none">
+    <li class="position-relative">
+      <a class="d-flex align-items-center text-decoration-none p-2 cursor-pointer">
         <img src="{{ asset('storage/images/efforts.png') }}" width="24" alt="">
         <span class="ms-3 text-dark">Efforts Tracker</span>
       </a>
+      <i class="position-absolute bi bi-chevron-down"></i>
+      <ul class="list-unstyled border-start border-4 border-primary ms-2 mt-1">
+        <li class="px-2"><a href="" class="text-decoration-none">Daily Tracker</a></li>
+        <li class="px-2"><a href="" class="text-decoration-none">Tracking History</a></li>
+        <li class="px-2"><a href="" class="text-decoration-none">Leaderboard</a></li>
+      </ul>
     </li>
   </ul>
 </div>

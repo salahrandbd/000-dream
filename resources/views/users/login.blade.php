@@ -1,8 +1,8 @@
 <x-layout>
-  <div class="login-container container-fluid">
+  <div class="login-container">
     <div class="row">
       <div class="col-12 col-md-6 mx-auto">
-        <div class="card my-5 p-3">
+        <div class="card my-5">
           <div class="card-body">
             <div class="text-center">
               <x-logo mode="dark"/>
