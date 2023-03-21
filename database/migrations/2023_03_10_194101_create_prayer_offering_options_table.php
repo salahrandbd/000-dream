@@ -15,6 +15,9 @@ return new class extends Migration {
       $table->foreignId('prayer_type_id')->constrained();
       $table->string('option');
       $table->json('applicable_genders');
+      $table->bigInteger('points')->nullable();
+      $table->bigInteger('special_points')->nullable();
+      $table->json('special_genders')->nullable();
       $table->string('short_desc');
       $table->timestamps();
     });

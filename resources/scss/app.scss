@@ -26,6 +26,22 @@ body {
   font-weight: 500;
 }
 
+.ls-0 {
+  letter-spacing: 0px;
+}
+
+.fs-7 {
+  font-size: $font-size-base * .75;
+}
+
+.fs-8 {
+  font-size: $font-size-base * .625;
+}
+
+.fs-9 {
+  font-size: $font-size-base * .5;
+}
+
 .is-invalid {
   &:focus {
     box-shadow: none !important;
@@ -56,4 +72,8 @@ body {
   span {
     color: $white;
   }
+}
+
+.page-title {
+  letter-spacing: 2px;
 }

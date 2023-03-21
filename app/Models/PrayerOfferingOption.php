@@ -7,5 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class PrayerOfferingOption extends Model
 {
-    use HasFactory;
+  use HasFactory;
+
+  public function prayerType()
+  {
+    return $this->belongsTo(PrayerType::class);
+  }
 }

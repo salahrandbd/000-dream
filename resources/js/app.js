@@ -24,11 +24,17 @@ $(window).on('load', () => {
     $(subMenuItem).on('click', (e) => {
       const subMenu = $(subMenuItem).find('ul');
       if (subMenu.css('max-height') != '0px') {
-        subMenu.css('max-height', '0px');
+        subMenu.css('max-height', '0px').removeClass('my-1');
       } else {
-        subMenu.css('max-height', subMenu.prop('scrollHeight') + 'px');
+        subMenu.css('max-height', subMenu.prop('scrollHeight') + 'px').addClass('my-1');
       }
     });
   });
+
+  // enable all tooltips
+  const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+  const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl)
+  })
 });
 

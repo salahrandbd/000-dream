@@ -1,10 +1,10 @@
-Prayer Type ID,Option,Applicable Genders,Short Description
-1,With takbeer e tahrima,"[""Male""]",Prayed in jama'ah with takbeer e tahrima
-1,In Jama'ah,"[""Male""]",Prayed in jama'ah but missed takbeer e tahrima
-1,Offered alone,"[""Male"", ""Female""]",Prayed in time but missed jama'ah completely
-1,Qasr/Jama,"[""Male"", ""Female""]",Prayed qasr/jama (or Fajr) while travelling
-1,Qada',"[""Male"", ""Female""]",Prayed but not in time
-1,Excused,"[""Female""]",Excused not to pray for legitimate reasons
-2,Offered ,"[""Male"", ""Female""]",Prayed in time
-2,Qada',"[""Male"", ""Female""]",Prayed but not in time
-2,Excused,"[""Male"", ""Female""]",Excused not to pray for legitimate reasons
+Prayer Type ID,Option,Applicable Genders,Points,Special Points,Special Genders,Short Description
+1,With takbeer e tahrima,"[""Male""]",1000,,,Prayed in jama'ah with takbeer e tahrima
+1,In jama'ah,"[""Male""]",900,,,Prayed in jama'ah but missed takbeer e tahrima
+1,Offered alone,"[""Male"", ""Female""]",700,,,Prayed in time but missed jama'ah completely
+1,Qasr/jama,"[""Male"", ""Female""]",1000,700,"[""Female""]",Prayed qasr/jama (or Fajr) while travelling
+1,Qada',"[""Male"", ""Female""]",500,,,Prayed but not in time
+1,Excused,"[""Female""]",700,,,Excused not to pray for legitimate reasons
+2,Offered,"[""Male"", ""Female""]",10,,,Prayed in time
+2,Qada',"[""Male"", ""Female""]",5,,,Prayed but not in time
+2,Excused,"[""Male"", ""Female""]",10,,,Excused not to pray for legitimate reasons
