@@ -13,8 +13,8 @@
       <i class="position-absolute bi bi-chevron-down"></i>
       <ul class="list-unstyled border-start border-4 border-primary ms-2">
         <li class="px-2 py-1"><a href="{{ route('prayer_tracker_daily.show', Carbon::now()->format('Y-m-d')) }}" class="text-decoration-none">Daily Tracker</a></li>
-        <li class="px-2 py-1"><a href="" class="text-decoration-none">Tracking History</a></li>
-        <li class="px-2 py-1"><a href="" class="text-decoration-none">Leaderboard</a></li>
+        <li class="px-2 py-1"><a href="{{ route('prayer_tracker_leaderboard.index') }}" class="text-decoration-none">Leaderboard</a></li>
+        <li class="px-2 py-1"><a  class="text-decoration-none">Tracking History</a></li>
       </ul>
     </li>
     <li class="position-relative">

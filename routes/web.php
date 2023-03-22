@@ -4,6 +4,7 @@ use App\Http\Controllers\ArtisanController;
 use App\Http\Controllers\PseudoNameController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Trackers\Prayer\DailyController as PrayerTrackerDailyController;
+use App\Http\Controllers\Trackers\Prayer\LeaderboardController as PrayerTrackerLeaderboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,6 +43,8 @@ Route::middleware('auth')->group(function () {
         ->name('prayer_tracker_daily.show');
       Route::put('daily/{date}', [PrayerTrackerDailyController::class, 'update'])
         ->name('prayer_tracker_daily.update');
+      Route::get('leaderboard', [PrayerTrackerLeaderboardController::class, 'index'])
+        ->name('prayer_tracker_leaderboard.index');
     });
   });
 });
