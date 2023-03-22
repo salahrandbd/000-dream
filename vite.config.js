@@ -7,7 +7,8 @@ export default defineConfig({
     laravel({
       input: [
         "resources/js/app.js",
-        "resources/js/register.js"
+        "resources/js/register.js",
+        "resources/js/daily-prayer-tracker.js",
       ],
       refresh: true,
     }),

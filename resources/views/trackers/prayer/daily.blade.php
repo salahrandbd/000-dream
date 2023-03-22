@@ -4,12 +4,29 @@
 
 <x-layout>
   <div class="daily-prayer-tracker-container">
-    <div class="row my-3">
-      <div class="col-12">
-        <h5 class="page-title text-uppercase fw-semibold mb-0 d-flex align-items-center">
-          Daily Salah Tracker
+    <div class="row align-items-center my-3">
+      <div class="col-12 col-sm-6 mb-2 mb-sm-0">
+        <h5 class="page-title text-uppercase fw-semibold mb-0 d-flex flex-column flex-sm-row align-items-center">
+          <span>Daily Salah Tracker</span>
           <span class="badge rounded-pill bg-primary fs-7 ls-0 ms-2">{{ Carbon::parse(request('date'))->toFormattedDayDateString() }}</span>
         </h5>
+      </div>
+      <div class="col-12 col-sm-6 text-center text-sm-end">
+        <div class="dropdown ms-auto">
+          <button class="btn btn-primary dropdown-toggle text-white" type="button" data-bs-toggle="dropdown">
+            <i class="bi bi-clock-history"></i>
+            <span class="ms-2">History</span>
+          </button>
+          <ul class="dropdown-menu">
+            <li class="px-3 py-2">
+              <form action="" class="historic-date-form">
+                <label for="historic_date_inp" class="form-label">Select a specific date</label>
+                <input min="{{ config('trackers.prayer.first_date_in_history') }}" max="{{ Carbon::now()->format('Y-m-d') }}" value="{{ request('date') }}" type="date" name="historic_date_inp" class="form-control mb-2" id="historic_date_inp" required>
+                <button class="btn btn-primary text-white w-100" type="submit">View</button>
+              </form>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
     <div class="card mb-3">
@@ -67,11 +84,11 @@
               </div>
             @endif
           @endforeach
-          <button class="btn btn-primary px-4 text-white">Update All</button>
+          <button class="btn btn-primary px-4 text-white">Save</button>
         </form>
       </div>
     </div>
   </div>
 </x-layout>
 
-
+@vite('resources/js/daily-prayer-tracker.js')
