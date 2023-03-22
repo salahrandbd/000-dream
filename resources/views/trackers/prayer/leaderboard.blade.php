@@ -22,10 +22,8 @@
           <div class="row align-items-end">
             <div class="col-12 mb-2 mb-sm-0 col-sm-2 text-center d-flex justify-content-center justify-content-sm-start">
               <div class="position-relative">
-                <img class="rounded-circle" width="64" src="{{ asset('storage/images/' . strtolower($leader->gender) . '.png') }}" alt="Header Avatar">
-                @if ($leader->user_id == auth()->id())
-                  <i class="bi bi-check-circle-fill text-primary position-absolute top-0 start-0"></i>
-                @endif
+                <img class="rounded-circle {{ $leader->user_id == auth()->id() ? 'border border-2 border-primary' : '' }}" width="64" src="{{ asset('storage/images/' . strtolower($leader->gender) . '.png') }}" alt="Header Avatar">
+                <span class="serial-badge badge rounded-pill bg-primary position-absolute">{{ $key + 1 }}</span>
               </div>
             </div>
             <div class="col-12 mb-2 mb-sm-0 col-sm-4">
