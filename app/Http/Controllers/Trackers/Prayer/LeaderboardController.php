@@ -11,8 +11,8 @@ class LeaderboardController extends Controller
   public function index(GetLeaders $getLeaders)
   {
     $leaders = $getLeaders->execute();
+    [$startDate, $endDate] = $getLeaders->getIntervalDates();
 
-    // dd($leaders);
-    return view('trackers.prayer.leaderboard', compact('leaders'));
+    return view('trackers.prayer.leaderboard', compact('leaders', 'startDate', 'endDate'));
   }
 }

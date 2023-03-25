@@ -85,7 +85,7 @@
               </div>
             @endif
           @endforeach
-          <button class="btn btn-primary px-4 text-white">Save</button>
+          <button class="save-btn btn btn-primary px-4 w-100 text-white">Save</button>
         </form>
       </div>
     </div>

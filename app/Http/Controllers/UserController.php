@@ -45,7 +45,10 @@ class UserController extends Controller
 
   public function login()
   {
-    $pseudoNames = PseudoName::select('id', 'name')->get();
+    $pseudoNames = PseudoName
+      ::select('id', 'name')
+      ->orderBy('name', 'asc')
+      ->get();
     return view('users.login', compact('pseudoNames'));
   }
 
