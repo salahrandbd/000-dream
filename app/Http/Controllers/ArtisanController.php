@@ -7,16 +7,6 @@ use Illuminate\Http\Request;
 
 class ArtisanController extends Controller
 {
-  public function __construct()
-  {
-    $this->middleware('artisan');
-  }
-
-  public function configClear()
-  {
-    Artisan::call('config:clear');
-  }
-
   public function configCache()
   {
     Artisan::call('config:cache');
@@ -45,5 +35,25 @@ class ArtisanController extends Controller
   public function seedPseudoName()
   {
     Artisan::call('db:seed --class=PseudoNameSeeder');
+  }
+
+  public function seedPrayerName()
+  {
+    Artisan::call('db:seed --class=PrayerNameSeeder');
+  }
+
+  public function seedPrayerType()
+  {
+    Artisan::call('db:seed --class=PrayerTypeSeeder');
+  }
+
+  public function seedPrayerVariation()
+  {
+    Artisan::call('db:seed --class=PrayerVariationSeeder');
+  }
+
+  public function seedPrayerOfferingOption()
+  {
+    Artisan::call('db:seed --class=PrayerOfferingOptionSeeder');
   }
 }

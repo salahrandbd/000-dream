@@ -11,22 +11,23 @@
           <span class="badge rounded-pill bg-primary fs-7 ls-0 ms-2">{{ Carbon::parse(request('date'))->toFormattedDayDateString() }}</span>
         </h5>
       </div>
-      <div class="col-12 col-sm-6 text-center text-sm-end">
-        <div class="dropdown ms-auto">
-          <button class="btn btn-primary dropdown-toggle text-white" type="button" data-bs-toggle="dropdown">
-            <i class="bi bi-clock-history"></i>
-            <span class="ms-2">History</span>
-          </button>
+      <div class="col-12 col-sm-6 d-flex justify-content-center justify-content-sm-end">
+        <button class="btn btn-primary dropdown-toggle text-white" type="button" data-bs-toggle="dropdown">
+          <i class="bi bi-clock-history"></i>
+          <span class="ms-2">History</span>
+        </button>
+        <div class="dropdown ms-1">
           <ul class="dropdown-menu">
             <li class="px-3 py-2">
               <form action="" class="historic-date-form">
                 <label for="historic_date_inp" class="form-label">Select a specific date</label>
-                <input min="{{ config('trackers.prayer.first_date_in_history') }}" max="{{ Carbon::now()->format('Y-m-d') }}" value="{{ request('date') }}" type="date" name="historic_date_inp" class="form-control mb-2" id="historic_date_inp" required>
+                <input min="{{ auth()->user()->prayer_tracker_subscription_date }}" max="{{ Carbon::now()->format('Y-m-d') }}" value="{{ request('date') }}" type="date" name="historic_date_inp" class="form-control mb-2" id="historic_date_inp" required>
                 <button class="btn btn-primary text-white w-100" type="submit">View</button>
               </form>
             </li>
           </ul>
         </div>
+        <a href="{{ route('unsubscribe_to_prayer_tracker.show') }}" class="btn btn-danger text-white ms-2">Unsubscribe</a>
       </div>
     </div>
     <div class="card mb-3">
@@ -65,8 +66,8 @@
                         <label class="form-check-label ms-1" for="prayer_tracker_{{ $dailyDetail['prayer_variation_id'] }}_{{ $prayerOfferingOption['id'] }}">
                           <span>{{ $prayerOfferingOption['option'] }}</span>
                           <span class="text-muted">({{ $prayerOfferingOption['points'] }} pts)</span>
-                          <span data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $prayerOfferingOption['short_desc'] }}" class="cursor-pointer"><i class="bi bi-info-circle-fill"></i></span>
                         </label>
+                        <span data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $prayerOfferingOption['short_desc'] }}" class="cursor-pointer"><i class="bi bi-info-circle-fill"></i></span>
                       </div>
                     @endforeach
                   </div>

@@ -17,16 +17,16 @@
         {{-- <li class="px-2 py-1"><a  class="text-decoration-none">Tracking History</a></li> --}}
       </ul>
     </li>
-    <li class="position-relative">
+    {{-- <li class="position-relative">
       <a class="d-flex align-items-center text-decoration-none p-2 cursor-pointer">
         <img src="{{ asset('storage/images/sawm.png') }}" width="24" alt="">
         <span class="ms-3 text-dark">Sawm Tracker</span>
       </a>
       <i class="position-absolute bi bi-chevron-down"></i>
       <ul class="list-unstyled border-start border-4 border-primary ms-2">
-        {{-- <li class="px-2 py-1"><a class="text-decoration-none">Daily Tracker</a></li>
+        <li class="px-2 py-1"><a class="text-decoration-none">Daily Tracker</a></li>
         <li class="px-2 py-1"><a class="text-decoration-none">Tracking History</a></li>
-        <li class="px-2 py-1"><a class="text-decoration-none">Leaderboard</a></li> --}}
+        <li class="px-2 py-1"><a class="text-decoration-none">Leaderboard</a></li>
       </ul>
     </li>
     <li class="position-relative">
@@ -36,9 +36,9 @@
       </a>
       <i class="position-absolute bi bi-chevron-down"></i>
       <ul class="list-unstyled border-start border-4 border-primary ms-2">
-        {{-- <li class="px-2 py-1"><a class="text-decoration-none">Daily Tracker</a></li>
+        <li class="px-2 py-1"><a class="text-decoration-none">Daily Tracker</a></li>
         <li class="px-2 py-1"><a class="text-decoration-none">Tracking History</a></li>
-        <li class="px-2 py-1"><a class="text-decoration-none">Leaderboard</a></li> --}}
+        <li class="px-2 py-1"><a class="text-decoration-none">Leaderboard</a></li>
       </ul>
     </li>
     <li class="position-relative">
@@ -48,10 +48,10 @@
       </a>
       <i class="position-absolute bi bi-chevron-down"></i>
       <ul class="list-unstyled border-start border-4 border-primary ms-2">
-        {{-- <li class="px-2 py-1"><a class="text-decoration-none">Daily Tracker</a></li>
+        <li class="px-2 py-1"><a class="text-decoration-none">Daily Tracker</a></li>
         <li class="px-2 py-1"><a class="text-decoration-none">Tracking History</a></li>
-        <li class="px-2 py-1"><a class="text-decoration-none">Leaderboard</a></li> --}}
+        <li class="px-2 py-1"><a class="text-decoration-none">Leaderboard</a></li>
       </ul>
-    </li>
+    </li> --}}
   </ul>
 </div>

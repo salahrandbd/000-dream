@@ -20,6 +20,7 @@ class User extends Authenticatable
   protected $fillable = [
     'pseudo_name_id',
     'password',
+    'prayer_tracker_subscription_date'
   ];
 
   /**

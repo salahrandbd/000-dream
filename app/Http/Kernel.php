@@ -64,5 +64,7 @@ class Kernel extends HttpKernel
     'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
     'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
     'artisan' => \App\Http\Middleware\Artisan::class,
+    'validate_prayer_tracker_subscription' => \App\Http\Middleware\Trackers\Prayer\ValidateSubscription::class,
+    'validate_prayer_tracker_unsubscription' => \App\Http\Middleware\Trackers\Prayer\ValidateUnsubscription::class
   ];
 }

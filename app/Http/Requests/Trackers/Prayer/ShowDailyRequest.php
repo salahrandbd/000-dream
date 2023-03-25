@@ -22,7 +22,7 @@ class ShowDailyRequest extends FormRequest
   public function rules(): array
   {
     return [
-      'date' => ['date_format:Y-m-d', 'after_or_equal:' . config('trackers.prayer.first_date_in_history'), 'before_or_equal:today']
+      'date' => ['date_format:Y-m-d', 'after_or_equal:' . auth()->user()->prayer_tracker_subscription_date, 'before_or_equal:today']
     ];
   }
 
