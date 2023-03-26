@@ -12,12 +12,16 @@
               @csrf
               <legend class="text-center fw-semibold mb-4">Register Now!</legend>
               <div class="mb-3">
-                <label for="gender" class="form-label">Select your gender</label>
-                <select name="gender" id="gender" class="form-select @error('gender') is-invalid @enderror" required>
-                  <option value="" selected>--Choose an option--</option>
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
-                </select>
+                <div class="d-flex">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="gender" id="gender_male" value="Male" required>
+                    <label class="form-check-label" for="gender_male">Male</label>
+                  </div>
+                  <div class="form-check ms-3">
+                    <input class="form-check-input" type="radio" name="gender" id="gender_female" value="Female" required>
+                    <label class="form-check-label" for="gender_female">Female</label>
+                  </div>
+                </div>
                 @error('gender') <div class="invalid-feedback">{{ $message }}</div> @enderror
               </div>
               <div class="mb-3">
