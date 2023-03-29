@@ -55,7 +55,12 @@
             @if ($dailyDetail['prayer_name'] != 'Others')
               <div class="row align-items-center mb-3">
                 <div class="col-12 col-sm-4 mb-2 mb-sm-0">
-                  <div class="card-subtitle">{{ $dailyDetail['prayer_type'] }}</div>
+                  <div class="card-subtitle">
+                    {{ $dailyDetail['prayer_type'] }}
+                    @if ($dailyDetail['prayer_offering_option_id'])
+                      <i class="bi bi-check-circle-fill text-success ms-1"></i>
+                    @endif
+                  </div>
                   <div class="text-muted">{{ $dailyDetail['prayer_desc'] }}</div>
                 </div>
                 <div class="col-12 col-sm-8">

@@ -23,25 +23,28 @@
           @endif
 
           <div class="row align-items-end">
-            <div class="col-12 mb-2 mb-sm-0 col-sm-2 d-flex justify-content-center justify-content-sm-start align-items-center">
-              <span class="serial-badge badge rounded-pill {{ $leader->user_id == auth()->id() ? 'bg-primary' : 'bg-secondary' }}">{{ $key + 1 }}</span>
-              <span class="ms-2 {{ $leader->user_id == auth()->id() ? '' : 'blur' }}">{{ $leader->user_id == auth()->id() ? auth()->user()->pseudoName->name : 'It\'s private' }}</span>
+            <div class="col-12 mb-2 mb-sm-1 col-sm-2 d-flex align-items-center">
+              <span class="serial-badge badge rounded-pill me-2 {{ $leader->user_id == auth()->id() ? 'bg-primary' : 'bg-secondary' }}">{{ $key + 1 }}</span>
+              <span class="{{ $leader->user_id == auth()->id() ? '' : 'blur' }}">{{ $leader->user_id == auth()->id() ? auth()->user()->pseudoName->name : 'It\'s private' }}</span>
             </div>
-            <div class="col-12 mb-2 mb-sm-0 col-sm-4">
+            <div class="col-12 mb-2 mb-sm-0 col-sm-3">
               <h6>Fard Success Rate:</h6>
               <div class="progress">
                 <div class="progress-bar bg-primary" role="progressbar" style="--width: {{ $leader->fard_success_rate }}%; width: {{ $leader->fard_success_rate }}%;">{{ $leader->fard_success_rate }}%</div>
               </div>
             </div>
-            <div class="col-12 mb-2 mb-sm-0 col-sm-4">
+            <div class="col-12 mb-2 mb-sm-0 col-sm-3">
               <h6>Sunnah Success Rate:</h6>
               <div class="progress">
                 <div class="progress-bar bg-primary" role="progressbar" style="--width: {{ $leader->sunnah_success_rate }}%; width: {{ $leader->sunnah_success_rate }}%;">{{ $leader->sunnah_success_rate }}%</div>
               </div>
             </div>
-            <div class="col-12 mb-2 mb-sm-0 col-sm-2">
+            <div class="col-6 mb-2 mb-sm-0 col-sm-2">
               <span class="fw-medium">Others:</span>
               <span>{{ $leader->others_rakats_count ?? 0 }} rak'ats</span>
+            </div>
+            <div class="col-6 text-end text-sm-start mb-2 mb-sm-1 col-sm-2">
+              <span class="serial-badge badge rounded-pill bg-primary">last {{ $leader->stat_duration }} day{{ $leader->stat_duration > 1 ? 's' : '' }}</span>
             </div>
           </div>
         @empty
