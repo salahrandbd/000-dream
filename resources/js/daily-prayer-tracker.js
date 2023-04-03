@@ -4,7 +4,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
   historicDateForm.on('submit', function (e) {
     e.preventDefault();
-    console.log(historicDateInp.val());
     location.href = `/trackers/prayer/daily/${historicDateInp.val()}`;
+  });
+
+  // enable all tooltips
+  const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+  const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl);
   });
 }, false);

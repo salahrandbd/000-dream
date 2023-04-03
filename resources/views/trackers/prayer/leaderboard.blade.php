@@ -22,21 +22,21 @@
             <hr>
           @endif
 
-          <div class="row align-items-end">
+          <div class="leader-row row align-items-end">
             <div class="col-12 mb-2 mb-sm-1 col-sm-2 d-flex align-items-center">
               <span class="serial-badge badge rounded-pill me-2 {{ $leader->user_id == auth()->id() ? 'bg-primary' : 'bg-secondary' }}">{{ $key + 1 }}</span>
-              <span class="{{ $leader->user_id == auth()->id() ? '' : 'blur' }}">{{ $leader->user_id == auth()->id() ? auth()->user()->pseudoName->name : 'It\'s private' }}</span>
+              <span class="{{ $leader->user_id == auth()->id() ? '' : 'blur' }}">{{ $leader->user_id == auth()->id() ? auth()->user()->pseudoName->name : 'Pseudo' }}</span>
             </div>
             <div class="col-12 mb-2 mb-sm-0 col-sm-3">
-              <h6>Fard Success Rate:</h6>
-              <div class="progress">
-                <div class="progress-bar bg-primary" role="progressbar" style="--width: {{ $leader->fard_success_rate }}%; width: {{ $leader->fard_success_rate }}%;">{{ $leader->fard_success_rate }}%</div>
+              <h6>Fard:</h6>
+              <div class="progress" data-bs-trigger="manual" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $leader->fard_success_rate }}%">
+                <div class="progress-bar progress-bar-animated bg-primary" role="progressbar" style="--width: {{ $leader->fard_success_rate }}%; width: {{ $leader->fard_success_rate }}%;"></div>
               </div>
             </div>
             <div class="col-12 mb-2 mb-sm-0 col-sm-3">
-              <h6>Sunnah Success Rate:</h6>
-              <div class="progress">
-                <div class="progress-bar bg-primary" role="progressbar" style="--width: {{ $leader->sunnah_success_rate }}%; width: {{ $leader->sunnah_success_rate }}%;">{{ $leader->sunnah_success_rate }}%</div>
+              <h6>Sunnah:</h6>
+              <div class="progress" data-bs-trigger="manual" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $leader->sunnah_success_rate }}%">
+                <div class="progress-bar bg-primary" role="progressbar" style="--width: {{ $leader->sunnah_success_rate }}%; width: {{ $leader->sunnah_success_rate }}%;"></div>
               </div>
             </div>
             <div class="col-6 mb-2 mb-sm-0 col-sm-2">
@@ -55,4 +55,4 @@
   </div>
 </x-layout>
 
-
+@vite('resources/js/prayer-leaderboard.js')

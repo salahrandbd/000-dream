@@ -81,7 +81,7 @@ body {
 }
 
 .progress-bar {
-  animation: smoothWidth ease-in-out 2s forwards;
+  animation: smoothWidth linear 1s forwards;
 }
 
 .blur {
@@ -89,7 +89,7 @@ body {
   text-shadow: 0 0 5px rgba($black, 0.5);
 }
 
-@keyframes smoothWidth {
-  0% { width: 0%; }
-  100% { width: var(--width); }
-}
+// @keyframes smoothWidth {
+//   0% { width: 0%; }
+//   100% { width: var(--width); }
+// }
