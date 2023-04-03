@@ -72,12 +72,11 @@ Route::group(['middleware' => 'auth', 'prefix' => '/trackers'], function() {
       });
     });
 
-    Route::group([
-      'middleware' => 'validate_prayer_tracker_unsubscription',
-      'name' => 'subscribe_to_prayer_tracker.'
-    ], function(){
-      Route::view('subscribe', 'trackers.prayer.subscribe')->name('show');
-      Route::put('subscribe', [SubscriptionController::class, 'subscribe'])->name('update');
+    Route::middleware('validate_prayer_tracker_unsubscription')->group(function(){
+      Route::name('subscribe_to_prayer_tracker.')->group(function(){
+        Route::view('subscribe', 'trackers.prayer.subscribe')->name('show');
+        Route::put('subscribe', [SubscriptionController::class, 'subscribe'])->name('update');
+      });
     });
   });
 });
