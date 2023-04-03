@@ -2,7 +2,7 @@
   <div class="edit-profile-container">
     <div class="card">
       <div class="card-body">
-        <form action="{{ route('edit_profile') }}" method="POST">
+        <form action="{{ route('edit_profile.update') }}" method="POST">
           @csrf
           @method('PUT')
 

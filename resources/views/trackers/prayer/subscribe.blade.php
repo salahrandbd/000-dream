@@ -13,7 +13,7 @@
     </div>
     <div class="card mb-3">
       <div class="card-body">
-        <form action="{{ route('subscribe_to_prayer_tracker') }}" method="POST" class="d-flex flex-column align-items-center">
+        <form action="{{ route('subscribe_to_prayer_tracker.update') }}" method="POST" class="d-flex flex-column align-items-center">
           @method('PUT')
           @csrf
 

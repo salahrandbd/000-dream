@@ -1,15 +1,13 @@
-@vite('resources/js/app.js')
-
 <header class="topbar position-relative container-fluid d-flex align-items-center border-bottom bg-white">
   <div class="topbar-left-wrapper d-flex justify-content-between justify-content-lg-start">
     <x-logo mode="dark" />
-    @auth()
+    @auth
       <i class="hamburger-menu-icon d-lg-none cursor-pointer bi bi-list fs-2"></i>
     @endauth
   </div>
 
   <div class="topbar-right-wrapper d-flex">
-    @guest()
+    @guest
       <div class="w-100 text-end">
         <a href="{{ route('login.show') }}" class="btn btn-primary text-white">Login</a>
       </div>

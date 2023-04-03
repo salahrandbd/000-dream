@@ -7,7 +7,7 @@
             <div class="text-center">
               <x-logo mode="dark"/>
             </div>
-            <form action="{{ route('login') }}" method="POST">
+            <form action="{{ route('login.store') }}" method="POST">
               @csrf
               <legend class="text-center fw-semibold mb-4">Login Now!</legend>
 

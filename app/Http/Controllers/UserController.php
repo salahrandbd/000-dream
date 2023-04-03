@@ -11,10 +11,6 @@ use Illuminate\Validation\Rules\Password;
 
 class UserController extends Controller
 {
-  public function register()
-  {
-    return view('users.register');
-  }
 
   public function store(Request $request)
   {
@@ -93,6 +89,7 @@ class UserController extends Controller
           ->from('users');
       })
       ->where('gender', '=', auth()->user()->pseudoName->gender)
+      ->orderBy('name')
       ->get(['id', 'name']);
 
     return view('users.edit-profile', compact('pseudoNames'));

@@ -3,9 +3,6 @@ document.addEventListener('DOMContentLoaded', function () {
   const pseudoNameInp = $('[name="pseudo_name_id"]');
 
   genderInp.on('change', (e) => {
-    console.log($(e.target).val());
-    if ($(e.target).val() == '') return;
-
     $.ajax({
       url: `/pseudo-names/available/?gender=${$(e.target).val()}`,
       method: 'GET',

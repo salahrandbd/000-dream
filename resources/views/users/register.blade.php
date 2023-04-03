@@ -8,7 +8,7 @@
               <x-logo mode="dark"/>
             </div>
 
-            <form action="{{ route('register') }}" method="POST">
+            <form action="{{ route('register.store') }}" method="POST">
               @csrf
               <legend class="text-center fw-semibold mb-4">Register Now!</legend>
               <div class="mb-3">

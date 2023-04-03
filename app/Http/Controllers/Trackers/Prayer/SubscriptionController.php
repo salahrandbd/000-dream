@@ -9,11 +9,6 @@ use Carbon\Carbon;
 
 class SubscriptionController extends Controller
 {
-  public function showSubscribe()
-  {
-    return view('trackers.prayer.subscribe');
-  }
-
   public function subscribe() {
     $todayDate = Carbon::now()->format('Y-m-d');
 
