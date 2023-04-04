@@ -80,16 +80,21 @@ body {
   letter-spacing: 2px;
 }
 
-.progress-bar {
-  animation: smoothWidth linear 1s forwards;
-}
-
 .blur {
   color: transparent;
   text-shadow: 0 0 5px rgba($black, 0.5);
 }
 
-// @keyframes smoothWidth {
-//   0% { width: 0%; }
-//   100% { width: var(--width); }
-// }
+// remove arrows/spinners from input type number
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}

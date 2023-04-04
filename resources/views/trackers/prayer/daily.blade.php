@@ -4,19 +4,29 @@
 
 <x-layout>
   <div class="daily-prayer-tracker-container">
-    <div class="row align-items-center my-3">
-      <div class="col-12 col-sm-6 mb-2 mb-sm-0">
-        <h5 class="page-title text-uppercase fw-semibold mb-0 d-flex flex-column flex-sm-row align-items-center">
-          <span>Daily Salah Tracker</span>
-          <span class="badge rounded-pill bg-primary fs-7 ls-0 ms-2">{{ Carbon::parse(request('date'))->toFormattedDayDateString() }}</span>
-        </h5>
-      </div>
-      <div class="col-12 col-sm-6 d-flex justify-content-center justify-content-sm-end">
-        <button class="btn btn-primary dropdown-toggle text-white" type="button" data-bs-toggle="dropdown">
-          <i class="bi bi-clock-history"></i>
-          <span class="ms-2">History</span>
-        </button>
-        <div class="dropdown ms-1">
+    <h5 class="page-title text-uppercase fw-semibold my-3 d-flex flex-column flex-sm-row align-items-center">
+      <span>Daily Salah Tracker</span>
+      <span class="badge rounded-pill bg-primary fs-7 ls-0 ms-2">{{ Carbon::parse(request('date'))->toFormattedDayDateString() }}</span>
+    </h5>
+    <ul class="list-unstyled d-flex align-items-center mb-3">
+      <li>
+        <div class="quick-actions-dropdown dropdown">
+          <a class="dropdown-toggle text-dark" type="button" data-bs-toggle="dropdown">
+            Quick Actions
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="mx-1 fw-bold">&middot;</li>
+      <li>
+        <div class="history-dropdown dropdown">
+          <a class="dropdown-toggle text-dark" type="button" data-bs-toggle="dropdown">
+            History
+          </a>
           <ul class="dropdown-menu">
             <li class="px-3 py-2">
               <form action="" class="historic-date-form">
@@ -27,9 +37,12 @@
             </li>
           </ul>
         </div>
-        <a href="{{ route('unsubscribe_to_prayer_tracker.show') }}" class="btn btn-danger text-white ms-2">Unsubscribe</a>
-      </div>
-    </div>
+      </li>
+      <li class="mx-1 fw-bold">&middot;</li>
+      <li>
+        <a href="{{ route('unsubscribe_to_prayer_tracker.show') }}" class="text-dark">Unsubscribe</a>
+      </li>
+    </ul>
     <div class="card mb-3">
       <div class="card-body">
         <form action="{{ route('prayer_tracker_daily.update', request('date')) }}" method="POST">
@@ -85,7 +98,11 @@
                   <div class="text-muted">{{ $dailyDetail['prayer_desc'] }}</div>
                 </div>
                 <div class="col-12 col-sm-8">
-                  <input type="number" min="0" class="form-control" placeholder="Rak'ats Count" value="{{ $dailyDetail['rakats_cnt'] ?? 0 }}" name="prayer_tracker[{{ $dailyDetail['prayer_variation_id'] }}]" id="prayer_tracker[{{ $dailyDetail['prayer_variation_id'] }}]">
+                  <div class="input-group mb-3">
+                    <span class="num-inp-dec-btn input-group-text cursor-pointer">-</span>
+                    <input type="number" min="0" class="form-control" placeholder="Rak'ats Count" value="{{ $dailyDetail['rakats_cnt'] ?? 0 }}" name="prayer_tracker[{{ $dailyDetail['prayer_variation_id'] }}]" id="prayer_tracker[{{ $dailyDetail['prayer_variation_id'] }}]">
+                    <span class="num-inp-inc-btn input-group-text cursor-pointer">+</span>
+                  </div>
                 </div>
               </div>
             @endif
