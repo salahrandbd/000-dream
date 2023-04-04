@@ -15,9 +15,11 @@
             Quick Actions
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
+            {!! auth()->user()->pseudoname->gender == 'Male' ? '<li><a class="dropdown-item" href="#"><i class="bi bi-check-lg text-success me-1"></i> Offered all fards with takbeer e tahrima</a></li>' : ''  !!}
+            {!! auth()->user()->pseudoname->gender == 'Female' ? '<li><a class="dropdown-item" href="#"><i class="bi bi-check-lg text-success me-1"></i> Offered all fards in time</a></li>' : ''  !!}
+            {!! auth()->user()->pseudoname->gender == 'Female' ? '<li><a class="dropdown-item" href="#"><i class="bi bi-check-lg text-success me-1"></i> Excuse all fards</a></li>' : ''  !!}
+            <li><a class="dropdown-item" href="#"><i class="bi bi-check-lg text-success me-1"></i> Offered all sunnat-e-muakkadahs in time</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-check-lg text-success me-1"></i> Excuse all sunnat-e-muakkadahs</a></li>
           </ul>
         </div>
       </li>
