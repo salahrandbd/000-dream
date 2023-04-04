@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
-  const historicDateForm = $('.historic-date-form');
+  // historic date selection
   const historicDateInp = $('#historic_date_inp');
+  const historicDateForm = $('#historic_date_form');
 
   historicDateForm.on('submit', function (e) {
     e.preventDefault();

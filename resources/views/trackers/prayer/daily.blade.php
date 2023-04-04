@@ -33,7 +33,7 @@
             <li class="px-3 py-2">
               <form action="" class="historic-date-form">
                 <label for="historic_date_inp" class="form-label">Select a specific date</label>
-                <input min="{{ auth()->user()->prayer_tracker_subscription_date }}" max="{{ Carbon::now()->format('Y-m-d') }}" value="{{ request('date') }}" type="date" name="historic_date_inp" class="form-control mb-2" id="historic_date_inp" required>
+                <input min="{{ auth()->user()->prayer_tracker_subscription_date }}" max="{{ Carbon::now()->format('Y-m-d') }}" value="{{ request('date') }}" name="historic_date_inp" type="date" class="form-control mb-2" id="historic_date_inp" required>
                 <button class="btn btn-primary text-white w-100" type="submit">View</button>
               </form>
             </li>
