@@ -122,6 +122,10 @@
       </div>
     </div>
   </div>
+
+  @if (auth()->user()->prayer_tracker_subscription_date)
+    <x-feature-001/>
+  @endif
 </x-layout>
 
 @vite('resources/js/daily-prayer-tracker.js')
