@@ -16,9 +16,9 @@ class DailyController extends Controller
   {
     $initDaily->execute();
     $dailyDetails = $getDailyDetails->execute();
-    // dd($getIncompleteDates->execute());
+    $incompleteDates = $getIncompleteDates->execute(auth()->user());
 
-    return view('trackers.prayer.daily', compact('dailyDetails'));
+    return view('trackers.prayer.daily', compact('dailyDetails', 'incompleteDates'));
   }
 
   public function update(UpdateDailyRequest $request, UpdateDaily $updateDaily)

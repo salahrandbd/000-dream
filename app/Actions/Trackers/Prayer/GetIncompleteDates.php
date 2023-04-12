@@ -2,19 +2,40 @@
 namespace App\Actions\Trackers\Prayer;
 
 use App\Models\PrayerTracker;
+use App\Models\User;
+use Carbon\Carbon;
 
 class GetIncompleteDates
 {
   public const MAX_DATES_CNT = 5;
+  public const EXACT_NOT_NULL_ROWS_CNT = 10;
 
-  public function execute() {
-    return PrayerTracker::select('date')
-      ->distinct()
-      ->where('user_id', auth()->id())
-      ->whereNull('prayer_offering_option_id')
+  public function execute(User $user) {
+    $incompleteDates = [];
+
+    $completeDates = PrayerTracker
+      ::where('user_id', $user->id)
+      ->whereNotNull('prayer_offering_option_id')
+      ->groupBy('date')
+      ->havingRaw('COUNT(*) = '. self::EXACT_NOT_NULL_ROWS_CNT)
       ->orderBy('date', 'DESC')
-      ->limit(self::MAX_DATES_CNT)
-      ->get();
+      ->pluck('date')
+      ->toArray();
 
+    $subscriptionDate = Carbon::parse($user->prayer_tracker_subscription_date);
+    $yesterday = Carbon::yesterday();
+    $datesInRange = Carbon::parse($subscriptionDate)->range($yesterday, '1 day');
+
+    foreach ($datesInRange as $date) {
+      if(!in_array($date->format('Y-m-d'), $completeDates)) {
+        $incompleteDates[] = $date;
+      }
+    }
+
+    $incompleteDates = array_filter(array_reverse($incompleteDates), function($value, $key){
+      return $key < self::MAX_DATES_CNT;
+    }, ARRAY_FILTER_USE_BOTH);
+
+    return $incompleteDates;
   }
 }

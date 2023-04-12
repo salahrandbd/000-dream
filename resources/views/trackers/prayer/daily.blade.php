@@ -45,6 +45,14 @@
         <a href="{{ route('unsubscribe_to_prayer_tracker.show') }}" class="text-dark">Unsubscribe</a>
       </li>
     </ul>
+    @if (count($incompleteDates))
+      <div class="d-flex flex-wrap mb-2">
+        <span>Yet to be completed:</span>
+        @foreach ($incompleteDates as $incompleteDate)
+          <a href="{{ route('prayer_tracker_daily.show', $incompleteDate->format('Y-m-d')) }}" class="badge rounded-pill bg-info text-decoration-none text-white ms-2 mb-2">{{ $incompleteDate->toFormattedDateString() }}</a>
+        @endforeach
+      </div>
+    @endif
     <div class="card mb-3">
       <div class="card-body">
         <form action="{{ route('prayer_tracker_daily.update', request('date')) }}" method="POST">
