@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\ArtisanController;
-use App\Http\Controllers\PseudoNameController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\Others\ArtisanController;
+use App\Http\Controllers\PseudoName\PseudoNameController;
+use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Trackers\Prayer\DailyController;
 use App\Http\Controllers\Trackers\Prayer\LeaderboardController;
 use App\Http\Controllers\Trackers\Prayer\SubscriptionController;

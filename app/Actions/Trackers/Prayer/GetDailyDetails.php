@@ -6,7 +6,7 @@ use App\Models\PrayerTracker;
 use App\Models\PrayerOfferingOption;
 use Illuminate\Support\Carbon;
 
-class DailyDetails
+class GetDailyDetails
 {
   public function isSpecialPrayer(PrayerTracker $prayerTracker)
   {
@@ -50,7 +50,7 @@ class DailyDetails
     return $prayerOfferingOptionsMapped;
   }
 
-  public function get(): array
+  public function execute(): array
   {
     $prayerOfferingOptions = PrayerOfferingOption::all()->toArray();
 

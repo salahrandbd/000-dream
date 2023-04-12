@@ -8,7 +8,6 @@ class UpdateDaily
 {
   public function execute($validated): void
   {
-    // dd($validated);
     foreach ($validated['prayer_tracker'] as $prayerVariationId => $prayerOfferingOptionId) {
       $prayerTracker = PrayerTracker
         ::where([

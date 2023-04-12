@@ -23,7 +23,7 @@
           @endif
 
           <div class="leader-row row align-items-end">
-            <div class="col-12 mb-2 mb-sm-1 col-sm-2 d-flex align-items-center">
+            <div class="col-12 mb-2 mb-sm-0 col-sm-2 d-flex align-items-center">
               <span class="serial-badge badge rounded-pill me-2 {{ $leader->user_id == auth()->id() ? 'bg-primary' : 'bg-secondary' }}">{{ $key + 1 }}</span>
               <span class="{{ $leader->user_id == auth()->id() ? '' : 'blur' }}">{{ $leader->user_id == auth()->id() ? auth()->user()->pseudoName->name : 'Pseudo' }}</span>
             </div>
@@ -39,7 +39,7 @@
               <span class="fw-medium">Others:</span>
               <span>{{ $leader->others_rakats_count ?? 0 }} rak'ats</span>
             </div>
-            <div class="col-6 text-end text-sm-start mb-2 mb-sm-1 col-sm-2">
+            <div class="col-6 text-end text-sm-start mb-2 mb-sm-0 col-sm-2">
               <span class="serial-badge badge rounded-pill bg-info">last {{ $leader->stat_duration }} day{{ $leader->stat_duration > 1 ? 's' : '' }}</span>
             </div>
           </div>

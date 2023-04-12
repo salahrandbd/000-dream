@@ -22,11 +22,6 @@ class SubscriptionController extends Controller
     ]);
   }
 
-  public function showUnsubscribe()
-  {
-    return view('trackers.prayer.unsubscribe');
-  }
-
   public function unsubscribe() {
     $user = User::findOrFail(auth()->id());
     $user->prayer_tracker_subscription_date = null;

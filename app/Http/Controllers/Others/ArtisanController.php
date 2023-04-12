@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Others;
 
+use App\Http\Controllers\Controller;
 use Artisan;
 
 class ArtisanController extends Controller
