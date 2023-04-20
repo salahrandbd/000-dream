@@ -12,6 +12,11 @@ class ArtisanController extends Controller
     Artisan::call('migrate');
   }
 
+  public function storageLink()
+  {
+    Artisan::call('storage:link');
+  }
+
   public function seedPseudoName()
   {
     Artisan::call('db:seed --class=PseudoNameSeeder');

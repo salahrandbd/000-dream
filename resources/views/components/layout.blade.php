@@ -17,5 +17,6 @@
       </div>
     </main>
     <x-flash-message/>
+    <x-feature-002/>
   </body>
 </html>

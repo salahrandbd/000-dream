@@ -8,41 +8,29 @@
       <span>Daily Salah Tracker</span>
       <span class="badge rounded-pill bg-primary fs-7 ls-0 ms-2">{{ Carbon::parse(request('date'))->toFormattedDayDateString() }}</span>
     </h5>
-    <ul class="list-unstyled d-flex align-items-center mb-3">
+    <ul class="list-unstyled d-flex align-items-center flex-wrap mb-3">
       <li>
         <div class="quick-actions-dropdown dropdown">
           <a class="dropdown-toggle text-dark" type="button" data-bs-toggle="dropdown">
             Quick Actions
           </a>
           <ul class="dropdown-menu">
-            {!! auth()->user()->pseudoname->gender == 'Male' ? '<li><a class="dropdown-item" href="#"><i class="bi bi-check-lg text-success me-1"></i> Offered all fards with takbeer e tahrima</a></li>' : ''  !!}
-            {!! auth()->user()->pseudoname->gender == 'Female' ? '<li><a class="dropdown-item" href="#"><i class="bi bi-check-lg text-success me-1"></i> Offered all fards in time</a></li>' : ''  !!}
-            {!! auth()->user()->pseudoname->gender == 'Female' ? '<li><a class="dropdown-item" href="#"><i class="bi bi-check-lg text-success me-1"></i> Excuse all fards</a></li>' : ''  !!}
-            <li><a class="dropdown-item" href="#"><i class="bi bi-check-lg text-success me-1"></i> Offered all sunnat-e-muakkadahs in time</a></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-check-lg text-success me-1"></i> Excuse all sunnat-e-muakkadahs</a></li>
-          </ul>
-        </div>
-      </li>
-      <li class="mx-1 fw-bold">&middot;</li>
-      <li>
-        <div class="history-dropdown dropdown">
-          <a class="dropdown-toggle text-dark" type="button" data-bs-toggle="dropdown">
-            History
-          </a>
-          <ul class="dropdown-menu">
-            <li class="px-3 py-2">
-              <form action="" class="historic-date-form">
-                <label for="historic_date_inp" class="form-label">Select a specific date</label>
-                <input min="{{ auth()->user()->prayer_tracker_subscription_date }}" max="{{ Carbon::now()->format('Y-m-d') }}" value="{{ request('date') }}" name="historic_date_inp" type="date" class="form-control mb-2" id="historic_date_inp" required>
-                <button class="btn btn-primary text-white w-100" type="submit">View</button>
-              </form>
-            </li>
+            {!! auth()->user()->pseudoname->gender == 'Male' ? '<li><a class="dropdown-item" href="#">Offered all fards with takbeer e tahrima</a></li>' : ''  !!}
+            {!! auth()->user()->pseudoname->gender == 'Female' ? '<li><a class="dropdown-item" href="#">Offered all fards in time</a></li>' : ''  !!}
+            {!! auth()->user()->pseudoname->gender == 'Female' ? '<li><a class="dropdown-item" href="#">Excuse all fards</a></li>' : ''  !!}
+            <li><a class="dropdown-item" href="#">Offered all sunnat-e-muakkadahs in time</a></li>
+            <li><a class="dropdown-item" href="#">Excuse all sunnat-e-muakkadahs</a></li>
           </ul>
         </div>
       </li>
       <li class="mx-1 fw-bold">&middot;</li>
       <li>
         <a href="{{ route('unsubscribe_to_prayer_tracker.show') }}" class="text-dark">Unsubscribe</a>
+      </li>
+      <li class="mx-1 fw-bold">&middot;</li>
+      <li class="d-flex align-items-center mt-2 mt-sm-0">
+        <label for="historic_date_inp" class="text-dark text-decoration-underline text-nowrap me-2">Go to:</label>
+        <input min="{{ auth()->user()->prayer_tracker_subscription_date }}" max="{{ Carbon::now()->format('Y-m-d') }}" value="{{ request('date') }}" name="historic_date_inp" type="date" class="form-control" id="historic_date_inp" required>
       </li>
     </ul>
     @if (count($incompleteDates))
@@ -122,10 +110,6 @@
       </div>
     </div>
   </div>
-
-  @if (auth()->user()->prayer_tracker_subscription_date)
-    <x-feature-001/>
-  @endif
 </x-layout>
 
 @vite('resources/js/daily-prayer-tracker.js')

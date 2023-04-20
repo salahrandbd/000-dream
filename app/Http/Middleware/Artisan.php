@@ -15,7 +15,7 @@ class Artisan
    */
   public function handle(Request $request, Closure $next): Response
   {
-    if (request('artisan_secret_key') != config('artisan_secret_key')) {
+    if (request('artisan_secret_key') != config('app.artisan_secret_key')) {
       return redirect('/');
     }
 

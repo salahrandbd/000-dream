@@ -32,7 +32,8 @@ class EditProfileRequest extends FormRequest
           return $query->where('gender', auth()->user()->pseudoName->gender);
         })
       ],
-      'password' => ['nullable', 'confirmed', Password::min(8)->uncompromised()]
+      'password' => ['nullable', 'confirmed', Password::min(8)->uncompromised()],
+      'profile_pic' => ['nullable', 'max:1000', 'mimetypes:image/jpeg,image/png']
     ];
   }
 }

@@ -87,6 +87,7 @@ Route::group([
   'controller' => ArtisanController::class
 ], function() {
   Route::get('/migrate', 'migrate');
+  Route::get('/storage-link', 'storageLink');
   Route::get('/seed-pseudo-name', 'seedPseudoName');
   Route::get('/seed-prayer-name', 'seedPrayerName');
   Route::get('/seed-prayer-type', 'seedPrayerType');
