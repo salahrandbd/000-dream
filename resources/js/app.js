@@ -7,12 +7,10 @@ window.bootstrap = bootstrap;
 import $ from 'jquery';
 window.$ = $;
 
-import './shared/flash-message';
-import './shared/sidebar-toggler';
+import './shared/bootstrap-init';
 import './shared/sidebar-sub-menu-toggler';
 import './shared/inc-dec-number-input';
 import './shared/new-feature-handler';
-import './shared/enable-all-tooltips';
 import './shared/preview-image-handler';
 
 

@@ -7,11 +7,12 @@ use Illuminate\Support\Facades\DB;
 
 class GetLeaders
 {
-  protected const MAX_DAYS = 30;
-  protected const FARD_PRAYER_ID = 1;
-  protected const SUNNAH_PRAYER_ID = 2;
-  protected const TOTAL_PRAYER_TIMES = 5;
-  protected const MAX_PRAYER_POINTS = [
+  public const MAX_DAYS = 30;
+  public const MAX_LEADERS_PER_PAGE = 10;
+  public const FARD_PRAYER_ID = 1;
+  public const SUNNAH_PRAYER_ID = 2;
+  public const TOTAL_PRAYER_TIMES = 5;
+  public const MAX_PRAYER_POINTS = [
     'FARD' => [
       'MALE' => 1200,
       'FEMALE' => 1000,
@@ -54,6 +55,6 @@ class GetLeaders
       ->orderBy('sunnah_success_rate', 'DESC')
       ->orderBy('others_rakats_count', 'DESC')
       ->orderBy('subscription_duration', 'DESC')
-      ->get();
+      ->paginate(self::MAX_LEADERS_PER_PAGE);
   }
 }

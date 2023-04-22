@@ -17,21 +17,21 @@
     </div>
     <div class="card mb-3">
       <div class="card-body">
-        @forelse ($leaders as $key => $leader)
-          @if ($key != 0)
+        @forelse ($leaders as $leader)
+          @if ($loop->index != 0)
             <hr>
           @endif
 
           <div class="leader-row row align-items-end">
             <div class="col-12 mb-2 mb-sm-0 col-sm-2 d-flex align-items-center">
-              <span class="serial-badge badge rounded-pill me-2 {{ $leader->user_id == auth()->id() ? 'bg-primary' : 'bg-secondary' }}">{{ $key + 1 }}</span>
+              <span class="serial-badge badge rounded-pill me-2 {{ $leader->user_id == auth()->id() ? 'bg-primary' : 'bg-secondary' }}">{{ $leaders->firstItem() + $loop->index }}</span>
               <span class="{{ $leader->user_id == auth()->id() ? '' : 'blur' }}">{{ $leader->user_id == auth()->id() ? auth()->user()->pseudoName->name : 'Pseudo' }}</span>
             </div>
-            <div class="col-12 mb-2 mb-sm-0 col-sm-3 d-flex justify-content-between justify-content-sm-start">
+            <div class="col-12 mb-2 mb-sm-0 col-sm-3 d-flex justify-content-between justify-content-sm-start align-items-center">
               <h6 class="mb-0">Fard Success Rate:</h6>
               <span class="badge rounded-pill bg-success ms-2">{{ $leader->fard_success_rate }}%</span>
             </div>
-            <div class="col-12 mb-2 mb-sm-0 col-sm-3 d-flex justify-content-between justify-content-sm-start">
+            <div class="col-12 mb-2 mb-sm-0 col-sm-3 d-flex justify-content-between justify-content-sm-start align-items-center">
               <h6 class="mb-0">Sunnah Success Rate:</h6>
               <span class="badge rounded-pill bg-success ms-2">{{ $leader->sunnah_success_rate }}%</span>
             </div>
@@ -49,6 +49,8 @@
       </div>
     </div>
   </div>
+
+  {{ $leaders->links() }}
 </x-layout>
 
 @vite('resources/js/prayer-leaderboard.js')
