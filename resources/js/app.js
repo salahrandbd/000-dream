@@ -8,6 +8,7 @@ import $ from 'jquery';
 window.$ = $;
 
 import './shared/bootstrap-init';
+import './shared/sidebar-toggler';
 import './shared/sidebar-sub-menu-toggler';
 import './shared/inc-dec-number-input';
 import './shared/new-feature-handler';

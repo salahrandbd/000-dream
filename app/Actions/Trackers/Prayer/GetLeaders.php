@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class GetLeaders
 {
-  public const MAX_DAYS = 30;
+  public const MAX_DAYS = 40;
   public const MAX_LEADERS_PER_PAGE = 10;
   public const FARD_PRAYER_ID = 1;
   public const SUNNAH_PRAYER_ID = 2;
