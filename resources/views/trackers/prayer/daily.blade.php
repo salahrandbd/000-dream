@@ -6,7 +6,7 @@
   <div class="daily-prayer-tracker-container">
     <h5 class="page-title text-uppercase fw-semibold my-3 d-flex flex-column flex-sm-row align-items-center">
       <span>Daily Salah Tracker</span>
-      <span class="badge rounded-pill bg-primary fs-7 ls-0 ms-2">{{ Carbon::parse(request('date'))->toFormattedDayDateString() }}</span>
+      <span class="badge rounded-pill bg-primary fs-7 ls-0 ms-2">{{ Carbon::parse(request('date'))->format('D, M d, Y') }}</span>
     </h5>
     <ul class="list-unstyled d-flex align-items-center flex-wrap mb-3">
       <li>

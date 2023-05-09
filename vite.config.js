@@ -9,7 +9,8 @@ export default defineConfig({
         "resources/js/app.js",
         "resources/js/register.js",
         "resources/js/daily-prayer-tracker.js",
-        "resources/js/prayer-leaderboard.js"
+        "resources/js/prayer-leaderboard.js",
+        "resources/js/prayer-tracker-history.js"
       ],
       refresh: true,
     }),

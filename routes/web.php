@@ -3,9 +3,10 @@
 use App\Http\Controllers\Others\ArtisanController;
 use App\Http\Controllers\PseudoName\PseudoNameController;
 use App\Http\Controllers\User\UserController;
-use App\Http\Controllers\Trackers\Prayer\DailyController;
-use App\Http\Controllers\Trackers\Prayer\LeaderboardController;
 use App\Http\Controllers\Trackers\Prayer\SubscriptionController;
+use App\Http\Controllers\Trackers\Prayer\DailyController;
+use App\Http\Controllers\Trackers\Prayer\HistoryController;
+use App\Http\Controllers\Trackers\Prayer\LeaderboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -64,6 +65,10 @@ Route::group(['middleware' => 'auth', 'prefix' => '/trackers'], function() {
 
       Route::name('prayer_tracker_leaderboard.')->group(function(){
         Route::get('leaderboard', [LeaderboardController::class, 'index'])->name('index');
+      });
+
+      Route::name('prayer_tracker_history.')->group(function(){
+        Route::get('history/{year}/{month}', [HistoryController::class, 'index'])->name('index');
       });
 
       Route::name('unsubscribe_to_prayer_tracker.')->group(function(){

@@ -1,4 +1,8 @@
-<div class="new-feature-modal modal fade" id="new-feature-002" tabindex="-1">
+@php
+  use Carbon\Carbon;
+@endphp
+
+<div class="new-feature-modal modal fade" id="new-feature-003" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header border-0">
@@ -6,8 +10,8 @@
       </div>
       <div class="modal-body d-flex flex-column align-items-center">
         <img class="new-feature-icon" src="{{ asset('storage/images/new-feature.png') }}" width="128" alt="">
-        <h5 class="new-feature-title modal-title text-capitalize my-3">#002 Change your profile pic now!</h5>
-        <p class="new-feature-short-desc mb-0">Bored to see your default profile picture? Your await is over. <a href="{{ route('edit_profile.show') }}">Change</a> your profile picture whenever you want.</p>
+        <h5 class="new-feature-title modal-title text-capitalize my-3">#003 Salah Tracker History in Charts!</h5>
+        <p class="new-feature-short-desc mb-0">Now, you can view your <b>Salah History</b> in charts per month basis. <a href="{{ route('prayer_tracker_history.index', [Carbon::now()->format('Y'), Carbon::now()->format('M')]) }}">Check</a> it out now!</p>
       </div>
       <div class="row flex-column flex-sm-row justify-content-center align-items-center p-3">
         <div class="col-12 col-sm-6 mx-auto">

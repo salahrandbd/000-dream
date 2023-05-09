@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-  const NEW_FEATURE_KEY = '002';
+  const NEW_FEATURE_KEY = '003';
 
   if($(`#new-feature-${NEW_FEATURE_KEY}`).length) {
     const newFeatureModal = new bootstrap.Modal($(`#new-feature-${NEW_FEATURE_KEY}`)[0]);

@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // historic date selection
   const historicDateInp = $('#historic_date_inp');
 
-  historicDateInp.on('change', function (e) {
+  historicDateInp.on('change', (e) => {
     location.href = `/trackers/prayer/daily/${$(e.target).val()}`;
   });
 

@@ -10,13 +10,16 @@
   </head>
   <body class="bg-light">
     <x-topbar/>
+
     <main class="position-relative d-flex align-items-stretch">
       @auth <x-sidebar/> @endauth
+
       <div class="site-content container-fluid">
         {{ $slot }}
       </div>
     </main>
+
     <x-flash-message/>
-    <x-feature-002/>
+    <x-feature-003/>
   </body>
 </html>
