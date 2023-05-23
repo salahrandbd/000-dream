@@ -65,7 +65,7 @@
               @error('profile_pic')
                 <div class="invalid-feedback">{{ $message }}</div>
               @enderror
-              <img class="preview-img rounded mt-3" width="128" src="{{ auth()->user()->profile_pic ? asset('storage/' . auth()->user()->profile_pic ) : asset('storage/images/' . strtolower(auth()->user()->pseudoName->gender) . '.png') }}" alt="{{ auth()->user()->pseudoName->name }}'s image">
+              <img class="preview-img rounded mt-3" width="128" src="{{ auth()->user()->profile_pic ? asset('storage/' . auth()->user()->profile_pic ) : asset('images/' . strtolower(auth()->user()->pseudoName->gender) . '.png') }}" alt="{{ auth()->user()->pseudoName->name }}'s image">
             </div>
           </div>
           <button type="submit" class="btn btn-primary px-4 text-white">Edit</button>

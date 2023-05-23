@@ -6,6 +6,7 @@ use App\Models\PrayerName;
 
 class PrayerNameSeeder extends Seeder
 {
+  private static string $csvFileAbsPath = 'database/csv/prayer-names.csv';
   /**
    * Run the database seeds.
    *
@@ -13,21 +14,23 @@ class PrayerNameSeeder extends Seeder
    */
   public function run()
   {
-    $csvData = fopen(base_path('database/csv/prayer-names.csv'), 'r');
-    $firstRow = true;
-    while (($data = fgetcsv($csvData, 555, ',')) !== false) {
-      if($firstRow) {
-        $firstRow = false;
-        continue;
-      }
 
-      PrayerName::create([
-        'name' => empty($data['0']) ? null : $data[0],
-        'special_name' => empty($data['1']) ? null : $data[1],
-        'special_days' => empty($data['2']) ? null : $data[2],
-        'special_genders' => empty($data['3']) ? null : $data[3]
-      ]);
+    $csvFileContents = fopen(base_path(self::$csvFileAbsPath), 'r');
+
+    $idx = 0;
+    while (($row = fgetcsv($csvFileContents, 555, ',')) !== false) {
+      if($idx != 0) {
+        [$name, $specialName, $specialDays, $specialGenders] = $row;
+        PrayerName::create([
+          'name' => $name,
+          'special_name' => $specialName ?: null,
+          'special_days' => $specialDays ?: null,
+          'special_genders' => $specialGenders ?: null
+        ]);
+      }
+      $idx++;
     }
-    fclose($csvData);
+
+    fclose($csvFileContents);
   }
 }

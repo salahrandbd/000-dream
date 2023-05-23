@@ -9,8 +9,8 @@ class PseudoName extends Model
 {
   use HasFactory;
 
-  // public function user()
-  // {
-  //   return $this->hasOne(User::class);
-  // }
+  public function user()
+  {
+    return $this->hasOne(User::class);
+  }
 }

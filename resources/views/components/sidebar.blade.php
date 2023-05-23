@@ -7,7 +7,7 @@
     <li class="sidebar-menu-title text-uppercase text-muted fw-semibold px-1 my-3">Trackers</li>
     <li class="position-relative">
       <a class="d-flex align-items-center text-decoration-none p-2 cursor-pointer">
-        <img src="{{ asset('storage/images/salah.png') }}" width="24" alt="">
+        <img src="{{ asset('images/salah.png') }}" width="24" alt="">
         <span class="ms-3 text-dark">Salah Tracker</span>
       </a>
       <i class="position-absolute bi bi-chevron-down"></i>
@@ -19,7 +19,7 @@
     </li>
     {{-- <li class="position-relative">
       <a class="d-flex align-items-center text-decoration-none p-2 cursor-pointer">
-        <img src="{{ asset('storage/images/sawm.png') }}" width="24" alt="">
+        <img src="{{ asset('images/sawm.png') }}" width="24" alt="">
         <span class="ms-3 text-dark">Sawm Tracker</span>
       </a>
       <i class="position-absolute bi bi-chevron-down"></i>
@@ -31,7 +31,7 @@
     </li>
     <li class="position-relative">
       <a class="d-flex align-items-center text-decoration-none p-2 cursor-pointer">
-        <img src="{{ asset('storage/images/transaction.png') }}" width="24" alt="">
+        <img src="{{ asset('images/transaction.png') }}" width="24" alt="">
         <span class="ms-3 text-dark">Transaction Tracker</span>
       </a>
       <i class="position-absolute bi bi-chevron-down"></i>
@@ -43,7 +43,7 @@
     </li>
     <li class="position-relative">
       <a class="d-flex align-items-center text-decoration-none p-2 cursor-pointer">
-        <img src="{{ asset('storage/images/efforts.png') }}" width="24" alt="">
+        <img src="{{ asset('images/efforts.png') }}" width="24" alt="">
         <span class="ms-3 text-dark">Efforts Tracker</span>
       </a>
       <i class="position-absolute bi bi-chevron-down"></i>

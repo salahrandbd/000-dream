@@ -6,6 +6,7 @@ use App\Models\PrayerType;
 
 class PrayerTypeSeeder extends Seeder
 {
+  private static string $csvFileAbsPath = 'database/csv/prayer-types.csv';
   /**
    * Run the database seeds.
    *
@@ -13,18 +14,19 @@ class PrayerTypeSeeder extends Seeder
    */
   public function run()
   {
-    $csvData = fopen(base_path('database/csv/prayer-types.csv'), 'r');
-    $firstRow = true;
-    while (($data = fgetcsv($csvData, 555, ',')) !== false) {
-      if($firstRow) {
-        $firstRow = false;
-        continue;
-      }
+    $csvFileContents = fopen(base_path(self::$csvFileAbsPath), 'r');
 
-      PrayerType::create([
-        'type' => empty($data['0']) ? null : $data[0],
-      ]);
+    $idx = 0;
+    while (($row = fgetcsv($csvFileContents, 555, ',')) !== false) {
+      if($idx != 0) {
+        [$type] = $row;
+        PrayerType::create([
+          'type' => $type,
+        ]);
+      }
+      $idx++;
     }
-    fclose($csvData);
+
+    fclose($csvFileContents);
   }
 }

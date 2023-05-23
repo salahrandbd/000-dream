@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 
 class PrayerVariationSeeder extends Seeder
 {
+  private static string $csvFileAbsPath = 'database/csv/prayer-variations.csv';
   /**
    * Run the database seeds.
    *
@@ -13,21 +14,22 @@ class PrayerVariationSeeder extends Seeder
    */
   public function run()
   {
-    $csvData = fopen(base_path('database/csv/prayer-variations.csv'), 'r');
-    $firstRow = true;
-    while (($data = fgetcsv($csvData, 555, ',')) !== false) {
-      if($firstRow) {
-        $firstRow = false;
-        continue;
-      }
+    $csvFileContents = fopen(base_path(self::$csvFileAbsPath), 'r');
 
-      PrayerVariation::create([
-        'prayer_name_id' => empty($data['0']) ? null : $data[0],
-        'prayer_type_id' => empty($data['1']) ? null : $data[1],
-        'short_desc' => empty($data['2']) ? null : $data[2],
-        'special_short_desc' => empty($data['3']) ? null : $data[3],
-      ]);
+    $idx = 0;
+    while (($row = fgetcsv($csvFileContents, 555, ',')) !== false) {
+      if($idx != 0) {
+        [$prayerNameId, $prayerTypeId, $shortDesc, $specialShortDesc] = $row;
+        PrayerVariation::create([
+          'prayer_name_id' => $prayerNameId,
+          'prayer_type_id' => $prayerTypeId ?: null,
+          'short_desc' => $shortDesc,
+          'special_short_desc' => $specialShortDesc ?: null,
+        ]);
+      }
+      $idx++;
     }
-    fclose($csvData);
+
+    fclose($csvFileContents);
   }
 }

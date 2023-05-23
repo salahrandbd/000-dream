@@ -6,6 +6,7 @@ use App\Models\PseudoName;
 
 class PseudoNameSeeder extends Seeder
 {
+  private static string $csvFileAbsPath = 'database/csv/pseudo-names.csv';
   /**
    * Run the database seeds.
    *
@@ -13,13 +14,20 @@ class PseudoNameSeeder extends Seeder
    */
   public function run()
   {
-    $csvData = fopen(base_path('database/csv/pseudo-names.csv'), 'r');
-    while (($data = fgetcsv($csvData, 555, ',')) !== false) {
-      PseudoName::create([
-        'name' => $data['0'],
-        'gender' => $data['1'],
-      ]);
+    $csvFileContents = fopen(base_path(self::$csvFileAbsPath), 'r');
+
+    $idx = 0;
+    while (($row = fgetcsv($csvFileContents, 555, ',')) !== false) {
+      if($idx != 0) {
+        [$name, $gender] = $row;
+          PseudoName::create([
+          'name' => $name,
+          'gender' => $gender
+        ]);
+      }
+      $idx++;
     }
-    fclose($csvData);
+
+    fclose($csvFileContents);
   }
 }

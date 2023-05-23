@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 
 class PrayerOfferingOptionSeeder extends Seeder
 {
+  private static string $csvFileAbsPath = 'database/csv/prayer-offering-options.csv';
   /**
    * Run the database seeds.
    *
@@ -13,24 +14,34 @@ class PrayerOfferingOptionSeeder extends Seeder
    */
   public function run()
   {
-    $csvData = fopen(base_path('database/csv/prayer-offering-options.csv'), 'r');
-    $firstRow = true;
-    while (($data = fgetcsv($csvData, 555, ',')) !== false) {
-      if($firstRow) {
-        $firstRow = false;
-        continue;
-      }
+    $csvFileContents = fopen(base_path(self::$csvFileAbsPath), 'r');
 
-      PrayerOfferingOption::create([
-        'prayer_type_id' => empty($data['0']) ? null : $data[0],
-        'option' => empty($data['1']) ? null : $data[1],
-        'applicable_genders' => empty($data['2']) ? null : $data[2],
-        'points' => empty($data['3']) ? null : $data[3],
-        'special_points' => empty($data['4']) ? null : $data[4],
-        'special_genders' => empty($data['5']) ? null : $data[5],
-        'short_desc' => empty($data['6']) ? null : $data[6],
-      ]);
+    $idx = 0;
+    while (($row = fgetcsv($csvFileContents, 555, ',')) !== false) {
+      if($idx != 0) {
+        [
+          $prayerTypeId,
+          $option,
+          $applicableGenders,
+          $points,
+          $specialPoints,
+          $specialGenders,
+          $shortDesc
+        ] = $row;
+
+        PrayerOfferingOption::create([
+          'prayer_type_id' => $prayerTypeId,
+          'option' => $option,
+          'applicable_genders' => $applicableGenders,
+          'points' => $points,
+          'special_points' => $specialPoints ?: null,
+          'special_genders' => $specialGenders ?: null,
+          'short_desc' => $shortDesc ?: null,
+        ]);
+      }
+      $idx++;
     }
-    fclose($csvData);
+
+    fclose($csvFileContents);
   }
 }
