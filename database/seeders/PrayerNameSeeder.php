@@ -2,11 +2,11 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\PrayerName;
+use Illuminate\Support\Facades\DB;
 
 class PrayerNameSeeder extends Seeder
 {
-  private static string $csvFileAbsPath = 'database/csv/prayer-names.csv';
+  private static string $csvFileAbsPath = 'public/docs/prayer-names.csv';
   /**
    * Run the database seeds.
    *
@@ -19,14 +19,15 @@ class PrayerNameSeeder extends Seeder
 
     $idx = 0;
     while (($row = fgetcsv($csvFileContents, 555, ',')) !== false) {
-      if($idx != 0) {
+      if ($idx != 0) {
         [$name, $specialName, $specialDays, $specialGenders] = $row;
-        PrayerName::create([
-          'name' => $name,
-          'special_name' => $specialName ?: null,
-          'special_days' => $specialDays ?: null,
-          'special_genders' => $specialGenders ?: null
-        ]);
+        DB::table('prayer_names')
+          ->insert([
+            'name' => $name,
+            'special_name' => $specialName ?: null,
+            'special_days' => $specialDays ?: null,
+            'special_genders' => $specialGenders ?: null
+          ]);
       }
       $idx++;
     }

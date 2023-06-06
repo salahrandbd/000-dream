@@ -10,7 +10,7 @@ class LeaderboardController extends Controller
 {
   public function index(GetLeaders $getLeaders)
   {
-    $leaders = $getLeaders->execute();
+    $leaders = $getLeaders->execute(auth()->user());
     [$startDate, $endDate] = $getLeaders->getIntervalDates();
 
     return view('trackers.prayer.leaderboard', compact('leaders', 'startDate', 'endDate'));

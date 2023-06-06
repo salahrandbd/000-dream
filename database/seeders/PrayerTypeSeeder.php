@@ -2,11 +2,11 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\PrayerType;
+use Illuminate\Support\Facades\DB;
 
 class PrayerTypeSeeder extends Seeder
 {
-  private static string $csvFileAbsPath = 'database/csv/prayer-types.csv';
+  private static string $csvFileAbsPath = 'public/docs/prayer-types.csv';
   /**
    * Run the database seeds.
    *
@@ -18,11 +18,12 @@ class PrayerTypeSeeder extends Seeder
 
     $idx = 0;
     while (($row = fgetcsv($csvFileContents, 555, ',')) !== false) {
-      if($idx != 0) {
+      if ($idx != 0) {
         [$type] = $row;
-        PrayerType::create([
-          'type' => $type,
-        ]);
+        DB::table('prayer_types')
+          ->insert([
+            'type' => $type,
+          ]);
       }
       $idx++;
     }

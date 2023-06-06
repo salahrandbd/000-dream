@@ -2,29 +2,31 @@
 
 namespace App\Actions\Trackers\Prayer;
 
-use App\Models\PrayerTracker;
-use App\Models\PrayerVariation;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 class InitDaily
 {
-  public function execute(): void
+  public function execute(User $user, string $date): void
   {
-    $prayerVariationsCnt = PrayerVariation::count();
-    $prayerTrackersCntByDate = PrayerTracker::where([
-      ['user_id', '=', auth()->id()],
-      ['date', '=', request('date')]
-    ])->count();
+    $prayerVariationsCnt = DB::table('prayer_variations')->count();
+
+    $prayerTrackersCntByDate = DB::table('prayer_trackers')
+      ->where([
+        ['user_id', $user->id()],
+        ['date', $date]
+      ])->count();
 
     if ($prayerVariationsCnt != $prayerTrackersCntByDate) {
-      DB::transaction(function () {
-        $prayerVariations = PrayerVariation::all();
+      DB::transaction(function () use ($user, $date) {
+        $prayerVariations = DB::table('prayer_variations')->get();
         foreach ($prayerVariations as $prayerVariation) {
-          PrayerTracker::create([
-            'prayer_variation_id' => $prayerVariation['id'],
-            'user_id' => auth()->id(),
-            'date' => request('date')
-          ]);
+          DB::table('prayer_trackers')
+            ->insert([
+              'prayer_variation_id' => $prayerVariation->id,
+              'user_id' => $user->id(),
+              'date' => $date
+            ]);
         }
       });
     }

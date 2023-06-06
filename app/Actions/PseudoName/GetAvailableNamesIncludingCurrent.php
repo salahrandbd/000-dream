@@ -2,17 +2,18 @@
 
 namespace App\Actions\PseudoName;
 
-use App\Models\PseudoName;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Collection;
+use \Illuminate\Support\Collection;
 use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Facades\DB;
 
 class GetAvailableNamesIncludingCurrent
 {
   public function execute(User $user): Collection
   {
-    return PseudoName::
-      whereNotIn('id', function (Builder $query) use($user) {
+    return DB::table('pseudo_names')
+      ->select('id', 'name')
+      ->whereNotIn('id', function (Builder $query) use ($user) {
         $query
           ->select('pseudo_name_id')
           ->where('pseudo_name_id', '<>', $user->pseudo_name_id)
@@ -20,6 +21,6 @@ class GetAvailableNamesIncludingCurrent
       })
       ->where('gender', '=', $user->pseudoName->gender)
       ->orderBy('name')
-      ->get(['id', 'name']);
+      ->get();
   }
 }

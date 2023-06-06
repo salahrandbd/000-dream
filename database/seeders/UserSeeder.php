@@ -2,10 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\PseudoName;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class UserSeeder extends Seeder
 {
@@ -16,8 +15,8 @@ class UserSeeder extends Seeder
    */
   public function run(): void
   {
-    while(User::count() != self::$maxUsersCnt) {
-      $randPseudoName = PseudoName::inRandomOrder()->first();
+    while (DB::table('users')->count() != self::$maxUsersCnt) {
+      $randPseudoName = DB::table('pseudo_names')->inRandomOrder()->first();
       User::firstOrCreate(
         ['pseudo_name_id' => $randPseudoName->id],
         ['password' => bcrypt(self::$defaultPassword)]

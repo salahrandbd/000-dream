@@ -5,6 +5,7 @@ namespace App\Http\Requests\Trackers\Prayer;
 use App\Models\PrayerOfferingOption;
 use App\Models\PrayerVariation;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\DB;
 
 class UpdateDailyRequest extends FormRequest
 {
@@ -37,16 +38,17 @@ class UpdateDailyRequest extends FormRequest
         'min:1',
         function ($attribute, $value, $fail) {
           foreach ($value as $prayerVariationId => $prayerOfferingOptionId) {
-            if (PrayerVariation::where('id', $prayerVariationId)->count() != 1) {
+            if (DB::table('prayer_variations')->where('id', $prayerVariationId)->count() != 1) {
               return $fail('Invalid prayer variation');
             }
 
-            if ($prayerVariationId != '11'
+            if (
+              $prayerVariationId != '11'
               && PrayerOfferingOption
-                  ::where('id', $prayerOfferingOptionId)
-                  ->whereJsonContains('applicable_genders', auth()->user()->pseudoName->gender)
-                  ->where('prayer_type_id', PrayerVariation::where('id', $prayerVariationId)->value('prayer_type_id'))
-                  ->count() != 1
+                ::where('id', $prayerOfferingOptionId)
+                ->whereJsonContains('applicable_genders', auth()->user()->pseudoName->gender)
+                ->where('prayer_type_id', DB::table('prayer_variations')->where('id', $prayerVariationId)->value('prayer_type_id'))
+                ->count() != 1
             ) {
               return $fail('Invalid prayer offering option');
             }

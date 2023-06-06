@@ -6,11 +6,12 @@ use App\Models\User;
 
 class StoreUser
 {
-  public function execute(array $validated) : User
+  public function execute(array $validated): User
   {
-    return User::create([
-      'pseudo_name_id' => $validated['pseudo_name_id'],
-      'password' => bcrypt($validated['password'])
-    ]);
+    return User::
+      create([
+        'pseudo_name_id' => $validated['pseudo_name_id'],
+        'password' => bcrypt($validated['password'])
+      ]);
   }
 }

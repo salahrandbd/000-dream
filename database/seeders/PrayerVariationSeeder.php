@@ -1,12 +1,12 @@
 <?php
 namespace Database\Seeders;
 
-use App\Models\PrayerVariation;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class PrayerVariationSeeder extends Seeder
 {
-  private static string $csvFileAbsPath = 'database/csv/prayer-variations.csv';
+  private static string $csvFileAbsPath = 'public/docs/prayer-variations.csv';
   /**
    * Run the database seeds.
    *
@@ -18,14 +18,15 @@ class PrayerVariationSeeder extends Seeder
 
     $idx = 0;
     while (($row = fgetcsv($csvFileContents, 555, ',')) !== false) {
-      if($idx != 0) {
+      if ($idx != 0) {
         [$prayerNameId, $prayerTypeId, $shortDesc, $specialShortDesc] = $row;
-        PrayerVariation::create([
-          'prayer_name_id' => $prayerNameId,
-          'prayer_type_id' => $prayerTypeId ?: null,
-          'short_desc' => $shortDesc,
-          'special_short_desc' => $specialShortDesc ?: null,
-        ]);
+        DB::table('prayer_variations')
+          ->insert([
+            'prayer_name_id' => $prayerNameId,
+            'prayer_type_id' => $prayerTypeId ?: null,
+            'short_desc' => $shortDesc,
+            'special_short_desc' => $specialShortDesc ?: null,
+          ]);
       }
       $idx++;
     }

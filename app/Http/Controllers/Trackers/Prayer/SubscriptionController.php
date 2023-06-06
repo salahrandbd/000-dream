@@ -6,13 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Models\PrayerTracker;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class SubscriptionController extends Controller
 {
-  public function subscribe() {
+  public function subscribe()
+  {
     $todayDate = Carbon::now()->format('Y-m-d');
 
-    $user = User::findOrFail(auth()->id());
+    $user = DB::table('users')->findOrFail(auth()->id());
     $user->prayer_tracker_subscription_date = $todayDate;
     $user->save();
 
@@ -22,13 +24,14 @@ class SubscriptionController extends Controller
     ]);
   }
 
-  public function unsubscribe() {
-    $user = User::findOrFail(auth()->id());
+  public function unsubscribe()
+  {
+    $user = DB::table('users')->findOrFail(auth()->id());
     $user->prayer_tracker_subscription_date = null;
     $user->save();
 
-    $prayerTrackerIds = PrayerTracker::where('user_id', auth()->id())->pluck('id');
-    PrayerTracker::destroy($prayerTrackerIds);
+    $prayerTrackerIds = DB::table('prayer_trackers')->where('user_id', auth()->id())->pluck('id');
+    DB::table('prayer_trackers')->destroy($prayerTrackerIds);
 
     return redirect()->route('dashboard')->with([
       'alert-type' => 'success',

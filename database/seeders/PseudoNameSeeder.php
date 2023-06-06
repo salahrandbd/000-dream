@@ -2,11 +2,11 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\PseudoName;
+use Illuminate\Support\Facades\DB;
 
 class PseudoNameSeeder extends Seeder
 {
-  private static string $csvFileAbsPath = 'database/csv/pseudo-names.csv';
+  private static string $csvFileAbsPath = 'public/docs/pseudo-names.csv';
   /**
    * Run the database seeds.
    *
@@ -18,12 +18,13 @@ class PseudoNameSeeder extends Seeder
 
     $idx = 0;
     while (($row = fgetcsv($csvFileContents, 555, ',')) !== false) {
-      if($idx != 0) {
+      if ($idx != 0) {
         [$name, $gender] = $row;
-          PseudoName::create([
-          'name' => $name,
-          'gender' => $gender
-        ]);
+        DB::table('pseudo_names')
+          ->insert([
+            'name' => $name,
+            'gender' => $gender
+          ]);
       }
       $idx++;
     }

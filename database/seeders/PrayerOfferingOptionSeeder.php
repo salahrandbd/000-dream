@@ -1,12 +1,12 @@
 <?php
 namespace Database\Seeders;
 
-use App\Models\PrayerOfferingOption;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class PrayerOfferingOptionSeeder extends Seeder
 {
-  private static string $csvFileAbsPath = 'database/csv/prayer-offering-options.csv';
+  private static string $csvFileAbsPath = 'public/docs/prayer-offering-options.csv';
   /**
    * Run the database seeds.
    *
@@ -18,7 +18,7 @@ class PrayerOfferingOptionSeeder extends Seeder
 
     $idx = 0;
     while (($row = fgetcsv($csvFileContents, 555, ',')) !== false) {
-      if($idx != 0) {
+      if ($idx != 0) {
         [
           $prayerTypeId,
           $option,
@@ -29,15 +29,16 @@ class PrayerOfferingOptionSeeder extends Seeder
           $shortDesc
         ] = $row;
 
-        PrayerOfferingOption::create([
-          'prayer_type_id' => $prayerTypeId,
-          'option' => $option,
-          'applicable_genders' => $applicableGenders,
-          'points' => $points,
-          'special_points' => $specialPoints ?: null,
-          'special_genders' => $specialGenders ?: null,
-          'short_desc' => $shortDesc ?: null,
-        ]);
+        DB::table('prayer_offering_options')
+          ->insert([
+            'prayer_type_id' => $prayerTypeId,
+            'option' => $option,
+            'applicable_genders' => $applicableGenders,
+            'points' => $points,
+            'special_points' => $specialPoints ?: null,
+            'special_genders' => $specialGenders ?: null,
+            'short_desc' => $shortDesc ?: null,
+          ]);
       }
       $idx++;
     }

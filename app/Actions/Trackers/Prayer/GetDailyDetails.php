@@ -2,77 +2,93 @@
 
 namespace App\Actions\Trackers\Prayer;
 
-use App\Models\PrayerTracker;
-use App\Models\PrayerOfferingOption;
-use Illuminate\Support\Carbon;
+use App\Models\User;
+use Illuminate\Database\Query\JoinClause;
+use Illuminate\Support\Facades\DB;
 
 class GetDailyDetails
 {
-  public function isSpecialPrayer(PrayerTracker $prayerTracker)
+  public function getPrayerNameRawSql(string $userGender, string $date): string
   {
-    return $prayerTracker->prayerVariation->prayerName->special_days
-      && $prayerTracker->prayerVariation->prayerName->special_genders
-      && in_array(auth()->user()->pseudoName->gender, json_decode($prayerTracker->prayerVariation->prayerName->special_genders))
-      && in_array(Carbon::parse(request('date'))->isoFormat('ddd'), json_decode($prayerTracker->prayerVariation->prayerName->special_days));
+    return 'case
+      when (
+        instr(prayer_names.special_genders, "' . $userGender . '") > 0
+        and instr(prayer_names.special_days, date_format("' . $date . '", "%a")) > 0
+      ) then prayer_names.special_name
+      else prayer_names.name
+    end as prayer_name';
   }
 
-  public function getPrayerName(PrayerTracker $prayerTracker)
+  public function getPrayerDescRawSql(string $userGender, string $date): string
   {
-    return $this->isSpecialPrayer($prayerTracker)
-      ? $prayerTracker->prayerVariation->prayerName->special_name
-      : $prayerTracker->prayerVariation->prayerName->name;
+    return 'case
+      when (
+        instr(prayer_names.special_genders, "' . $userGender . '") > 0
+        and instr(prayer_names.special_days, date_format("' . $date . '", "%a")) > 0
+      ) then prayer_variations.special_short_desc
+      else prayer_variations.short_desc
+    end as prayer_desc';
   }
 
-  public function getPrayerDesc(PrayerTracker $prayerTracker)
+  public function getPrayerOfferingPointRawSql(string $userGender): string
   {
-    return $this->isSpecialPrayer($prayerTracker)
-      ? $prayerTracker->prayerVariation->special_short_desc
-      : $prayerTracker->prayerVariation->short_desc;
+    return 'case
+      when instr(prayer_offering_options.special_genders, "' . $userGender . '") > 0 then prayer_offering_options.special_points
+      else prayer_offering_options.points
+    end as prayer_offering_option_points';
   }
 
-  public function getPrayerOfferingOptions(PrayerTracker $prayerTracker, array $prayerOfferingOptions)
+  public function execute(User $user, string $date): array
   {
-    $prayerOfferingOptionsFiltered = array_filter($prayerOfferingOptions, function ($item) use ($prayerTracker) {
-      return ($prayerTracker->prayerVariation->prayer_type_id == $item['prayer_type_id'])
-            && in_array(auth()->user()->pseudoName->gender, json_decode($item['applicable_genders']));
-    });
+    $dailyDetailsExceptOtherPrayer = DB::table('prayer_trackers')
+      ->where([
+        ['prayer_trackers.user_id', '=', $user->id],
+        ['prayer_trackers.date', '=', $date]
+      ])
+      ->join('prayer_variations', 'prayer_trackers.prayer_variation_id', '=', 'prayer_variations.id')
+      ->join('prayer_names', 'prayer_variations.prayer_name_id', '=', 'prayer_names.id')
+      ->join('prayer_types', 'prayer_variations.prayer_type_id', '=', 'prayer_types.id')
+      ->crossJoin('prayer_offering_options', function (JoinClause $join) use ($user) {
+        $join->on('prayer_offering_options.prayer_type_id', '=', 'prayer_types.id')
+          ->whereJsonContains('applicable_genders', $user->pseudoName->gender);
+      })
+      ->select(
+        'prayer_variations.id as prayer_variation_id',
+        'prayer_trackers.prayer_offering_option_id as chosen_prayer_offering_option_id',
+        'prayer_trackers.rakats_cnt as rakats_cnt',
+        DB::raw($this->getPrayerNameRawSql($user->pseudoName->gender, $date)),
+        DB::raw($this->getPrayerDescRawSql($user->pseudoName->gender, $date)),
+        'prayer_types.type as prayer_type',
+        'prayer_offering_options.id as prayer_offering_option_id',
+        'prayer_offering_options.option as prayer_offering_option',
+        'prayer_offering_options.short_desc as prayer_offering_option_desc',
+        DB::raw($this->getPrayerOfferingPointRawSql($user->pseudoName->gender))
+      )
+      ->orderBy('prayer_trackers.id', 'ASC')
+      ->orderBy('prayer_offering_options.id', 'ASC')
+      ->get()
+      ->toArray();
 
-    $prayerOfferingOptionsMapped = array_map(function ($item) {
-      return [
-        'id' => $item['id'],
-        'option' => $item['option'],
-        'points' => $item['special_genders'] && in_array(auth()->user()->pseudoName->gender, json_decode($item['special_genders'])) ? $item['special_points'] : $item['points'],
-        'short_desc' => $item['short_desc']
-      ];
-    }, $prayerOfferingOptionsFiltered);
+    $dailyDetailsOfOtherPrayer = DB::table('prayer_trackers')
+      ->where([
+        ['prayer_trackers.user_id', '=', $user->id],
+        ['prayer_trackers.date', '=', $date]
+      ])
+      ->join('prayer_variations', 'prayer_trackers.prayer_variation_id', '=', 'prayer_variations.id')
+      ->join('prayer_names', 'prayer_variations.prayer_name_id', '=', 'prayer_names.id')
+      ->select(
+        'prayer_variations.id as prayer_variation_id',
+        'prayer_trackers.rakats_cnt as rakats_cnt',
+        'prayer_names.name as prayer_name',
+        'prayer_variations.prayer_type_id as prayer_type',
+        'prayer_variations.short_desc as prayer_desc',
+      )
+      ->whereNull('prayer_variations.prayer_type_id')
+      ->get()
+      ->toArray();
 
+    $dailyDetails = array_merge($dailyDetailsExceptOtherPrayer, $dailyDetailsOfOtherPrayer);
 
-    return $prayerOfferingOptionsMapped;
-  }
-
-  public function execute(): array
-  {
-    $prayerOfferingOptions = PrayerOfferingOption::all()->toArray();
-
-    $prayerTrackers = PrayerTracker::where([
-      ['user_id', '=', auth()->id()],
-      ['date', '=', request('date')]
-    ])->get();
-
-    $prayerTrackersNew = [];
-
-    foreach ($prayerTrackers as $prayerTracker) {
-      $prayerTrackersNew[] = [
-        'prayer_variation_id' => $prayerTracker->prayer_variation_id,
-        'prayer_offering_option_id' => $prayerTracker->prayer_offering_option_id,
-        'rakats_cnt' => $prayerTracker->rakats_cnt,
-        'prayer_name' => $this->getPrayerName($prayerTracker),
-        'prayer_type' => $prayerTracker->prayerVariation->prayerType->type ?? null,
-        'prayer_desc' => $this->getPrayerDesc($prayerTracker),
-        'prayer_offering_options' => $this->getPrayerOfferingOptions($prayerTracker, $prayerOfferingOptions)
-      ];
-    }
-
-    return $prayerTrackersNew;
+    return $dailyDetails;
   }
 }
