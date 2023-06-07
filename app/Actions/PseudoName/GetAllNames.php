@@ -2,15 +2,15 @@
 
 namespace App\Actions\PseudoName;
 
-use App\Models\PseudoName;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 class GetAllNames
 {
-  public function execute() : Collection
+  public function execute(): Collection
   {
-    return PseudoName
-      ::select('id', 'name')
+    return DB::table('pseudo_names')
+      ->select('id', 'name')
       ->orderBy('name', 'asc')
       ->get();
   }

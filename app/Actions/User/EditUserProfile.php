@@ -3,14 +3,13 @@
 namespace App\Actions\User;
 
 use App\Models\User;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class EditUserProfile
 {
   public function execute(string $userId, array $validated): void
   {
-    $user = DB::table('users')->find($userId);
+    $user = User::find($userId);
 
     if ($validated['pseudo_name_id']) {
       $user->pseudo_name_id = $validated['pseudo_name_id'];
@@ -19,7 +18,7 @@ class EditUserProfile
       $user->password = bcrypt($validated['password']);
     }
 
-    if ($validated['profile_pic']) {
+    if (isset($validated['profile_pic'])) {
       if ($user->profile_pic) {
         Storage::disk('public')->delete($user->profile_pic);
       }

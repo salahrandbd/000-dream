@@ -14,7 +14,7 @@ class SubscriptionController extends Controller
   {
     $todayDate = Carbon::now()->format('Y-m-d');
 
-    $user = DB::table('users')->findOrFail(auth()->id());
+    $user = User::findOrFail(auth()->id());
     $user->prayer_tracker_subscription_date = $todayDate;
     $user->save();
 
@@ -26,12 +26,11 @@ class SubscriptionController extends Controller
 
   public function unsubscribe()
   {
-    $user = DB::table('users')->findOrFail(auth()->id());
+    $user = User::findOrFail(auth()->id());
     $user->prayer_tracker_subscription_date = null;
     $user->save();
 
-    $prayerTrackerIds = DB::table('prayer_trackers')->where('user_id', auth()->id())->pluck('id');
-    DB::table('prayer_trackers')->destroy($prayerTrackerIds);
+    DB::table('prayer_trackers')->where('user_id', auth()->id())->delete();
 
     return redirect()->route('dashboard')->with([
       'alert-type' => 'success',

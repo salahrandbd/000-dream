@@ -33,17 +33,18 @@ class GetPerMonthStat
     $actualStartDate = max($startDate, $subscriptionDate);
     $actualEndDate = min($endDate, $yesterdayDate);
 
-    return array_map(function($date){
+    return array_map(function ($date) {
       return $date->format('Y-m-d');
     }, CarbonPeriod::create($actualStartDate->format('Y-m-d'), $actualEndDate->format('Y-m-d'))->toArray());
   }
 
-  public function getExistingDaysStat(string $year, string $monthName): array {
-    return PrayerTracker
-      ::leftJoin('prayer_offering_options', 'prayer_trackers.prayer_offering_option_id', '=', 'prayer_offering_options.id')
+  public function getExistingDaysStat(string $year, string $monthName): array
+  {
+    return DB::table('prayer_trackers')
+      ->leftJoin('prayer_offering_options', 'prayer_trackers.prayer_offering_option_id', '=', 'prayer_offering_options.id')
       ->select(
-        DB::raw('round((ifnull(sum(case when prayer_offering_options.prayer_type_id = ' . self::FARD_PRAYER_ID . ' and instr(prayer_offering_options.special_genders, \'' . auth()->user()->pseudoName->gender . '\') > 0 then prayer_offering_options.special_points when prayer_offering_options.prayer_type_id = ' . self::FARD_PRAYER_ID . ' then prayer_offering_options.points else 0 end), 0) / (5 * '. self::MAX_PRAYER_POINTS['FARD'][strtoupper(auth()->user()->pseudoName->gender)] .') * 100), 2) as fard_success_rate'),
-        DB::raw('round((ifnull(sum(case when prayer_offering_options.prayer_type_id = ' . self::SUNNAH_PRAYER_ID . ' and instr(prayer_offering_options.special_genders, \'' . auth()->user()->pseudoName->gender . '\') > 0 then prayer_offering_options.special_points when prayer_offering_options.prayer_type_id = ' . self::SUNNAH_PRAYER_ID . ' then prayer_offering_options.points else 0 end), 0) / (5 * '. self::MAX_PRAYER_POINTS['SUNNAH'][strtoupper(auth()->user()->pseudoName->gender)] .') * 100), 2) as sunnah_success_rate'),
+        DB::raw('round((ifnull(sum(case when prayer_offering_options.prayer_type_id = ' . self::FARD_PRAYER_ID . ' and instr(prayer_offering_options.special_genders, \'' . auth()->user()->pseudoName->gender . '\') > 0 then prayer_offering_options.special_points when prayer_offering_options.prayer_type_id = ' . self::FARD_PRAYER_ID . ' then prayer_offering_options.points else 0 end), 0) / (5 * ' . self::MAX_PRAYER_POINTS['FARD'][strtoupper(auth()->user()->pseudoName->gender)] . ') * 100), 2) as fard_success_rate'),
+        DB::raw('round((ifnull(sum(case when prayer_offering_options.prayer_type_id = ' . self::SUNNAH_PRAYER_ID . ' and instr(prayer_offering_options.special_genders, \'' . auth()->user()->pseudoName->gender . '\') > 0 then prayer_offering_options.special_points when prayer_offering_options.prayer_type_id = ' . self::SUNNAH_PRAYER_ID . ' then prayer_offering_options.points else 0 end), 0) / (5 * ' . self::MAX_PRAYER_POINTS['SUNNAH'][strtoupper(auth()->user()->pseudoName->gender)] . ') * 100), 2) as sunnah_success_rate'),
         DB::raw('ifnull(sum(prayer_trackers.rakats_cnt), 0) as others_rakats_count'),
         'prayer_trackers.date'
       )
@@ -62,7 +63,7 @@ class GetPerMonthStat
     $allDaysStat = [];
 
     foreach ($allDays as $idx => $day) {
-      if(isset($existingDaysStat[$existingDaysIdx]) && $day == $existingDaysStat[$existingDaysIdx]['date']) {
+      if (isset($existingDaysStat[$existingDaysIdx]) && $day == $existingDaysStat[$existingDaysIdx]->date) {
         $allDaysStat[] = $existingDaysStat[$existingDaysIdx];
         $existingDaysIdx++;
       } else {
@@ -74,7 +75,7 @@ class GetPerMonthStat
         ];
       }
 
-      $allDaysStat[$idx]['date'] = Carbon::parse($allDaysStat[$idx]['date'])->format('jS M');
+      $allDaysStat[$idx]->date = Carbon::parse($allDaysStat[$idx]->date)->format('jS M');
     }
 
     return $allDaysStat;

@@ -13,7 +13,7 @@ class InitDaily
 
     $prayerTrackersCntByDate = DB::table('prayer_trackers')
       ->where([
-        ['user_id', $user->id()],
+        ['user_id', $user->id],
         ['date', $date]
       ])->count();
 
@@ -24,7 +24,7 @@ class InitDaily
           DB::table('prayer_trackers')
             ->insert([
               'prayer_variation_id' => $prayerVariation->id,
-              'user_id' => $user->id(),
+              'user_id' => $user->id,
               'date' => $date
             ]);
         }
