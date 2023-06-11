@@ -9,26 +9,25 @@ class InitDaily
 {
   public function execute(User $user, string $date): void
   {
-    $prayerVariationsCnt = DB::table('prayer_variations')->count();
-
     $prayerTrackersCntByDate = DB::table('prayer_trackers')
       ->where([
         ['user_id', $user->id],
         ['date', $date]
       ])->count();
 
-    if ($prayerVariationsCnt != $prayerTrackersCntByDate) {
-      DB::transaction(function () use ($user, $date) {
-        $prayerVariations = DB::table('prayer_variations')->get();
-        foreach ($prayerVariations as $prayerVariation) {
-          DB::table('prayer_trackers')
-            ->insert([
-              'prayer_variation_id' => $prayerVariation->id,
-              'user_id' => $user->id,
-              'date' => $date
-            ]);
-        }
-      });
-    }
+    if ($prayerTrackersCntByDate > 0)
+      return;
+
+    $prayerVariations = DB::table('prayer_variations')->get()->toArray();
+    $prayerTrackersToInsert = array_map(function ($prayerVariation) use ($user, $date) {
+      return [
+        'user_id' => $user->id,
+        'date' => $date,
+        'prayer_variation_id' => $prayerVariation->id
+      ];
+    }, $prayerVariations);
+
+    DB::table('prayer_trackers')
+      ->insert($prayerTrackersToInsert);
   }
 }
