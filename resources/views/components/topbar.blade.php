@@ -15,9 +15,11 @@
 
     @auth
       <div class="dropdown ms-auto">
-        <button type="button" class="btn border-0" data-bs-toggle="dropdown" >
-          <img class="rounded-circle of-cover" width="32" height="32" src="{{ auth()->user()->profile_pic ? asset('storage/' . auth()->user()->profile_pic ) : asset('images/' . strtolower(auth()->user()->pseudoName->gender) . '.png') }}" alt="{{ auth()->user()->pseudoName->name }}'s image">
-          <span class="d-none d-sm-inline-block mx-1">{{ auth()->user()->pseudoName->name }}</span>
+        <button type="button" class="btn border-0" data-bs-toggle="dropdown">
+          <img class="rounded-circle of-cover" width="32" height="32"
+            src="{{ $authUser->profile_pic ? asset('storage/' . $authUser->profile_pic) : asset('images/' . strtolower($authUser->pseudoName->gender) . '.png') }}"
+            alt="{{ $authUser->pseudoName->name }}'s image">
+          <span class="d-none d-sm-inline-block mx-1">{{ $authUser->pseudoName->name }}</span>
           <i class="bi bi-chevron-down"></i>
         </button>
         <div class="dropdown-menu">

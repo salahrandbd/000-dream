@@ -3,15 +3,15 @@
 namespace App\Http\Controllers\PseudoName;
 
 use App\Http\Controllers\Controller;
-use App\Actions\PseudoName\GetAvailableNames;
+use App\Services\PseudoNameService;
 use App\Http\Requests\PseudoName\AvailableNamesRequest;
 
 class PseudoNameController extends Controller
 {
-  public function available(AvailableNamesRequest $request, GetAvailableNames $getAvailableNames)
+  public function available(AvailableNamesRequest $request, PseudoNameService $pseudoNameService)
   {
     return response()->json([
-      'pseudo_names' => $getAvailableNames->execute($request->validated())
+      'pseudo_names' => $pseudoNameService->getAvailable($request->validated()['gender'])
     ]);
   }
 }

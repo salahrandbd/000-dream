@@ -16,13 +16,13 @@
             Quick Actions
           </a>
           <ul class="dropdown-menu">
-            {!! auth()->user()->pseudoname->gender == 'Male'
+            {!! $authUser->pseudoname->gender == 'Male'
                 ? '<li><a class="dropdown-item" href="#">Offered all fards with takbeer e tahrima</a></li>'
                 : '' !!}
-            {!! auth()->user()->pseudoname->gender == 'Female'
+            {!! $authUser->pseudoname->gender == 'Female'
                 ? '<li><a class="dropdown-item" href="#">Offered all fards in time</a></li>'
                 : '' !!}
-            {!! auth()->user()->pseudoname->gender == 'Female'
+            {!! $authUser->pseudoname->gender == 'Female'
                 ? '<li><a class="dropdown-item" href="#">Excuse all fards</a></li>'
                 : '' !!}
             <li><a class="dropdown-item" href="#">Offered all sunnat-e-muakkadahs in time</a></li>
@@ -37,7 +37,7 @@
       <li class="mx-1 fw-bold">&middot;</li>
       <li class="d-flex align-items-center mt-2 mt-sm-0">
         <label for="historic_date_inp" class="text-dark text-decoration-underline text-nowrap me-2">Go to:</label>
-        <input min="{{ auth()->user()->prayer_tracker_subscription_date }}" max="{{ Carbon::now()->format('Y-m-d') }}"
+        <input min="{{ $authUser->prayer_tracker_subscription_date }}" max="{{ Carbon::now()->format('Y-m-d') }}"
           value="{{ request('date') }}" name="historic_date_inp" type="date" class="form-control"
           id="historic_date_inp" required>
       </li>
@@ -108,34 +108,34 @@
               </div>
 
               @if ($dailyDetails[$loop->index]->prayer_variation_id != $dailyDetails[$loop->index + 1]->prayer_variation_id)
-                    </div>
-                  </div>
-                </div>
-              @endif
-            @else
-              <div class="row align-items-center mb-3">
-                <div class="col-12 col-sm-4 mb-2 mb-sm-0">
-                  <label class="card-subtitle" for="prayer_tracker[{{ $dailyDetail->prayer_variation_id }}]">Rak'ats
-                    Count</label>
-                  <div class="text-muted">{{ $dailyDetail->prayer_desc }}</div>
-                </div>
-                <div class="col-12 col-sm-8">
-                  <div class="input-group mb-3">
-                    <span class="num-inp-dec-btn input-group-text cursor-pointer">-</span>
-                    <input type="number" min="0" class="form-control" placeholder="Rak'ats Count"
-                      value="{{ $dailyDetail->rakats_cnt ?? 0 }}" name="prayer_tracker[{{ $dailyDetail->prayer_variation_id }}]"
-                      id="prayer_tracker[{{ $dailyDetail->prayer_variation_id }}]">
-                    <span class="num-inp-inc-btn input-group-text cursor-pointer">+</span>
-                  </div>
-                </div>
-              </div>
-            @endif
-          @endforeach
-
-          <button class="save-btn btn btn-primary px-4 w-100 text-white">Save</button>
-        </form>
       </div>
     </div>
+  </div>
+  @endif
+@else
+  <div class="row align-items-center mb-3">
+    <div class="col-12 col-sm-4 mb-2 mb-sm-0">
+      <label class="card-subtitle" for="prayer_tracker[{{ $dailyDetail->prayer_variation_id }}]">Rak'ats
+        Count</label>
+      <div class="text-muted">{{ $dailyDetail->prayer_desc }}</div>
+    </div>
+    <div class="col-12 col-sm-8">
+      <div class="input-group mb-3">
+        <span class="num-inp-dec-btn input-group-text cursor-pointer">-</span>
+        <input type="number" min="0" class="form-control" placeholder="Rak'ats Count"
+          value="{{ $dailyDetail->rakats_cnt ?? 0 }}" name="prayer_tracker[{{ $dailyDetail->prayer_variation_id }}]"
+          id="prayer_tracker[{{ $dailyDetail->prayer_variation_id }}]">
+        <span class="num-inp-inc-btn input-group-text cursor-pointer">+</span>
+      </div>
+    </div>
+  </div>
+  @endif
+  @endforeach
+
+  <button class="save-btn btn btn-primary px-4 w-100 text-white">Save</button>
+  </form>
+  </div>
+  </div>
   </div>
 </x-layout>
 

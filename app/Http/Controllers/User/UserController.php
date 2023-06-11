@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Actions\PseudoName\GetAllNames;
-use App\Actions\PseudoName\GetAvailableNamesIncludingCurrent;
+use App\Models\User;
+use App\Services\PseudoNameService;
 use App\Actions\User\LogoutUser;
 use App\Actions\User\EditUserProfile;
 use App\Actions\User\StoreUser;
@@ -29,9 +29,9 @@ class UserController extends Controller
     ]);
   }
 
-  public function login(GetAllNames $getAllNames)
+  public function login(PseudoNameService $pseudoNameService)
   {
-    $pseudoNames = $getAllNames->execute();
+    $pseudoNames = $pseudoNameService->getAll();
 
     return view('users.login', compact('pseudoNames'));
   }
@@ -58,9 +58,9 @@ class UserController extends Controller
     ]);
   }
 
-  public function showEditProfile(GetAvailableNamesIncludingCurrent $getAvailableNamesIncludingCurrent)
+  public function showEditProfile(PseudoNameService $pseudoNameService)
   {
-    $pseudoNames = $getAvailableNamesIncludingCurrent->execute(auth()->user());
+    $pseudoNames = $pseudoNameService->getAvailableWithOwn(auth()->user());
 
     return view('users.edit-profile', compact('pseudoNames'));
   }
